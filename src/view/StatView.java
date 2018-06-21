@@ -119,6 +119,8 @@ public class StatView {
         series.getData().add(new XYChart.Data(2, 5));
         lineChart.getData().add(series);
         
+        lineChart.getXAxis().setTickLabelsVisible(false);
+        
         gp.add(time, 2, 2);
         gp.add(lineChart, 1, 2);
 		return gp;
