@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,10 +26,6 @@ public class StatView {
 	GetStats gs = new GetStats();
 	
 	public void start() {
-		
-		Integer wins = gs.getLosses();
-		Integer losses = gs.getLosses();
-		
 		//Menu buttons
 		Button btnTimePlayed = new Button();
 		Button btnWinLoss = new Button();
@@ -63,27 +60,80 @@ public class StatView {
 		btnWinLoss.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				bp.setCenter(createWinLoss());
+			}			
+		});
+		
+		btnTimePlayed.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
 				bp.setCenter(createPlaytime());
 			}			
 		});
 	}
 	
-	public GridPane createPlaytime() {
-		GridPane gp = new GridPane();
-		Text title = new Text("Spielzeit");
-		gp.add(title, 1, 1);
-		title.setFont(Font.font ("Verdana", 100));
+	public GridPane createWinLoss() {
+		GridPane gp = createView("Gewinn/Verlust:");
+		Integer wins = gs.getWins();
+		Integer losses = gs.getLosses();
+		
+		Text games = new Text("Spiele gesamt:" + (wins + losses));
+		
+		games.setFont(Font.font("Verdana",50));
+		
 		
 		ObservableList<PieChart.Data> pieChartDataWinLoss =
                 FXCollections.observableArrayList(
-                new PieChart.Data("Siege",12),
-                new PieChart.Data("Niederlagen", 12));
+                new PieChart.Data("Siege",wins),
+                new PieChart.Data("Niederlagen", losses));
 		
 		PieChart chart = new PieChart(pieChartDataWinLoss);
 		chart.setTitle("Sieg/Verlust-Verhältnis");
 		chart.setLegendSide(Side.RIGHT);
 		chart.setLabelsVisible(false);
+	
 		gp.add(chart, 1, 2);
+		gp.add(games, 2, 2);
+		return gp;
+	}
+	
+	public GridPane createPlaytime() {
+		GridPane gp = createView("Spielzeit:");
+		NumberAxis xAxis = new NumberAxis();
+		NumberAxis yAxis = new NumberAxis();
+		
+		Text time = new Text("Gesamthaft gespielt: 213h"); //TODO: add real value
+		time.setFont(Font.font("Verdana",50));
+		
+		yAxis.setLabel("Spielzeit in Stunden");
+		LineChart<Number,Number> lineChart = 
+                new LineChart<Number,Number>(xAxis,yAxis);
+                
+        lineChart.setTitle("Spielzeit in den letzten drei Monaten");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();	
+        series.setName("My portfolio");
+        //populating the series with data
+        series.getData().add(new XYChart.Data(0, 3));
+        series.getData().add(new XYChart.Data(1, 14));
+        series.getData().add(new XYChart.Data(2, 5));
+        lineChart.getData().add(series);
+        
+        gp.add(time, 2, 2);
+        gp.add(lineChart, 1, 2);
+		return gp;
+	}
+	
+	//Creates the basic Panel with the title as argument
+	public GridPane createView(String title) {
+		GridPane gp = new GridPane();
+		gp.setHgap(50);
+		gp.setVgap(50);
+		
+		Text titleGP = new Text(title);
+		titleGP.setFont(Font.font ("Verdana", FontPosture.ITALIC, 75));
+		
+		gp.add(titleGP, 1,1);
 		return gp;
 	}
 }

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -17,6 +18,9 @@ public class MainView {
 	
 	public void start(Stage primaryStage) {
 		sv = new StatView();
+		
+		Text greetings = new Text("Willkommen *Fremdländer*");
+		
 		
 		primaryStage.setTitle("Multiple Choice and Users");
 		
@@ -57,9 +61,7 @@ public class MainView {
 		
 		
 		
-		root.getChildren().add(btnMultipleChoiceTest);
-		root.getChildren().add(btnMultipleChoiceAddQuestions);
-		root.getChildren().add(btnStats);
+		root.getChildren().addAll(greetings,btnMultipleChoiceTest, btnMultipleChoiceAddQuestions, btnStats);
 		       
 		primaryStage.setScene(new Scene(root,500,500));
 		primaryStage.show();
