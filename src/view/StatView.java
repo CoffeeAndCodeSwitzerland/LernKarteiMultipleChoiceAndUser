@@ -34,25 +34,19 @@ public class StatView {
 		btnWinLoss.setText("Gewinn/Verlust-Statistik");
 		btnTimePlayed.setText("Spielzeit");
 		btnCloseStats.setText("Statistiken schliessen");
-		
+		//Menu box
 		HBox hb = new HBox();
-		hb.getChildren().add(btnWinLoss);
-		hb.getChildren().add(btnTimePlayed);
-		hb.getChildren().add(btnCloseStats);
+		hb.getChildren().addAll(btnWinLoss,btnTimePlayed,btnCloseStats);
+		hb.setStyle("-fx-background-color: #ff69b4;    -fx-padding: 15;\r\n" + 
+					"    -fx-spacing: 10;");
 		
-		hb.getStylesheets().add("Stylesheets/Stats.css");
-		hb.getStyleClass().add("hbox");
-		
+		BorderPane bp = new BorderPane();
+		bp.setTop(hb);
+		//Stage and stats
 		Stage stats = new Stage();
 		stats.setFullScreen(true);
 		stats.setTitle("Statistiken");
-		BorderPane bp = new BorderPane();
-		
-		bp.setTop(hb);
-		
 		stats.setScene(new Scene(bp, 900, 900));
-		
-		
 		stats.show();
 		
 		btnCloseStats.setOnAction(new EventHandler<ActionEvent>() {
@@ -68,58 +62,6 @@ public class StatView {
 				
 			}			
 		});
-		/*
-		
-		HBox hb = new HBox();
-		hb.getChildren().add(btnWinLoss);
-		hb.getChildren().add(btnTimePlayed);
-		
-		Stage stats = new Stage();
-		stats.setFullScreen(true);
-		stats.setTitle("Statistiken");
-		BorderPane bp = new BorderPane();
-		
-        ObservableList<PieChart.Data> pieChartDataWinLoss =
-                FXCollections.observableArrayList(
-                new PieChart.Data("Siege",wins),
-                new PieChart.Data("Niederlagen", losses));
-		
-		PieChart chart = new PieChart(pieChartDataWinLoss);
-		chart.setTitle("Sieg/Verlust-Verhältnis");
-		chart.setLegendSide(Side.RIGHT);
-		chart.setLabelsVisible(false);
-		
-		NumberAxis xAxis = new NumberAxis();
-		NumberAxis yAxis = new NumberAxis();
-		
-		xAxis.setLabel("Spielzeit in den letzten 3 Monaten");
-		LineChart<Number,Number> lineChart = 
-                new LineChart<Number,Number>(xAxis,yAxis);
-                
-        lineChart.setTitle("Stock Monitoring, 2010");
-        //defining a series
-        XYChart.Series series = new XYChart.Series();	
-        series.setName("My portfolio");
-        //populating the series with data
-        series.getData().add(new XYChart.Data(0, 13));
-        series.getData().add(new XYChart.Data(1, 14));
-        series.getData().add(new XYChart.Data(2, 15));
-		 
-        lineChart.getData().add(series);
-			
-		AnchorPane ap = new AnchorPane();
-		
-		ap.getChildren().add(chart);
-		ap.getChildren().add(lineChart);
-		
-		AnchorPane.setRightAnchor(lineChart, 8.0);
-		AnchorPane.setLeftAnchor(chart, 8.0);
-		
-		bp.setCenter(ap);
-		
-		stats.setScene(new Scene(bp, 900, 900));
-		
-		stats.show();*/
 	}
 	
 }
