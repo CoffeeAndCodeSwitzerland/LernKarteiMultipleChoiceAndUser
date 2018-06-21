@@ -8,7 +8,7 @@ public class Greetings {
 	GetGeneralPlayerInfo pl = new GetGeneralPlayerInfo();
 	
 	String plName = pl.playName();
-	
+	//Chooses a random greeting
 	public String createGreeting() {
 		String greeting = "Willkommen zurück";
 		Integer number = rand.nextInt(5); 
