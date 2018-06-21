@@ -10,23 +10,23 @@ public class Greetings {
 	String plName = pl.playName();
 	
 	public String createGreeting() {
-		String greeting = "Welcome back";
+		String greeting = "Willkommen zurück";
 		Integer number = rand.nextInt(5); 
 		switch(number){
 		case 1:
-			greeting = "Greetings Traveler";
+			greeting = "Grüsse Reisender";
 			break;
 		case 2:
 			greeting = plName + " is back in da house!";
 			break;
 		case 3:
-			greeting = "Nice to see you, " + plName;
+			greeting = "Nett dich zu sehen, " + plName;
 			break;
 		case 4: 
 			greeting = "You're a wizard, " + plName;
 			break;
 		case 5:
-			greeting = "Good, better, " + plName;
+			greeting = "Gut, besser, " + plName;
 			break;
 		}
 		
