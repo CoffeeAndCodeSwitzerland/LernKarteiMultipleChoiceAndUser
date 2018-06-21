@@ -14,8 +14,11 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class StatView {
@@ -41,6 +44,7 @@ public class StatView {
 					"    -fx-spacing: 10;");
 		
 		BorderPane bp = new BorderPane();
+		
 		bp.setTop(hb);
 		//Stage and stats
 		Stage stats = new Stage();
@@ -59,9 +63,27 @@ public class StatView {
 		btnWinLoss.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
+				bp.setCenter(createPlaytime());
 			}			
 		});
 	}
 	
+	public GridPane createPlaytime() {
+		GridPane gp = new GridPane();
+		Text title = new Text("Spielzeit");
+		gp.add(title, 1, 1);
+		title.setFont(Font.font ("Verdana", 100));
+		
+		ObservableList<PieChart.Data> pieChartDataWinLoss =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Siege",12),
+                new PieChart.Data("Niederlagen", 12));
+		
+		PieChart chart = new PieChart(pieChartDataWinLoss);
+		chart.setTitle("Sieg/Verlust-Verhältnis");
+		chart.setLegendSide(Side.RIGHT);
+		chart.setLabelsVisible(false);
+		gp.add(chart, 1, 2);
+		return gp;
+	}
 }
