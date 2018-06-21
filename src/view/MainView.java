@@ -50,6 +50,7 @@ public class MainView {
 				primaryStage.close();
 			}			
 		});
+		
 		VBox root = new VBox();
 		root.setPadding(new Insets(100,100,100,100));
 		root.setSpacing(10);

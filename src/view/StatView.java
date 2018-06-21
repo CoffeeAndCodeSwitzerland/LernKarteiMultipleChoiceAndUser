@@ -3,14 +3,18 @@ package view;
 import modul.GetStats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -20,6 +24,55 @@ public class StatView {
 	public void start() {
 		
 		Integer wins = gs.getLosses();
+		Integer losses = gs.getLosses();
+		
+		//Menu buttons
+		Button btnTimePlayed = new Button();
+		Button btnWinLoss = new Button();
+		Button btnCloseStats = new Button();
+		
+		btnWinLoss.setText("Gewinn/Verlust-Statistik");
+		btnTimePlayed.setText("Spielzeit");
+		btnCloseStats.setText("Statistiken schliessen");
+		
+		HBox hb = new HBox();
+		hb.getChildren().add(btnWinLoss);
+		hb.getChildren().add(btnTimePlayed);
+		hb.getChildren().add(btnCloseStats);
+		
+		hb.getStylesheets().add("Stylesheets/Stats.css");
+		hb.getStyleClass().add("hbox");
+		
+		Stage stats = new Stage();
+		stats.setFullScreen(true);
+		stats.setTitle("Statistiken");
+		BorderPane bp = new BorderPane();
+		
+		bp.setTop(hb);
+		
+		stats.setScene(new Scene(bp, 900, 900));
+		
+		
+		stats.show();
+		
+		btnCloseStats.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				stats.close();
+			}			
+		});
+		
+		btnWinLoss.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+			}			
+		});
+		/*
+		
+		HBox hb = new HBox();
+		hb.getChildren().add(btnWinLoss);
+		hb.getChildren().add(btnTimePlayed);
 		
 		Stage stats = new Stage();
 		stats.setFullScreen(true);
@@ -29,7 +82,7 @@ public class StatView {
         ObservableList<PieChart.Data> pieChartDataWinLoss =
                 FXCollections.observableArrayList(
                 new PieChart.Data("Siege",wins),
-                new PieChart.Data("Niederlagen", 12));
+                new PieChart.Data("Niederlagen", losses));
 		
 		PieChart chart = new PieChart(pieChartDataWinLoss);
 		chart.setTitle("Sieg/Verlust-Verhältnis");
@@ -66,7 +119,7 @@ public class StatView {
 		
 		stats.setScene(new Scene(bp, 900, 900));
 		
-		stats.show();
+		stats.show();*/
 	}
 	
 }
