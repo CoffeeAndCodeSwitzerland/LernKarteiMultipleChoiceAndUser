@@ -11,15 +11,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import modul.GetGeneralPlayerInfo;
+import modul.Greetings;
 
 public class MainView {
 
 	StatView sv;
+	Greetings greet = new Greetings();
 	
 	public void start(Stage primaryStage) {
 		sv = new StatView();
 		
-		Text greetings = new Text("Willkommen *Fremdländer*");
+		Text greetings = new Text(greet.createGreeting());
 		
 		
 		primaryStage.setTitle("Multiple Choice and Users");
