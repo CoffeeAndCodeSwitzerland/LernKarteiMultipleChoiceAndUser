@@ -18,9 +18,11 @@ public class MainView {
 
 	StatView sv;
 	Greetings greet = new Greetings();
+	TestView tv;
 	
 	public void start(Stage primaryStage) {
 		sv = new StatView();
+		tv = new TestView();
 		
 		Text greetings = new Text(greet.createGreeting());
 		
@@ -47,7 +49,8 @@ public class MainView {
 		btnMultipleChoiceTest.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				primaryStage.close();
+				//primaryStage.close();
+				tv.window();
 			}			
 		});
 
