@@ -5,7 +5,11 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * 
+ * @author MiHa04
+ *
+ */
 public class Main extends javafx.application.Application {
 	@Override
 	public void start(Stage primaryStage) {
