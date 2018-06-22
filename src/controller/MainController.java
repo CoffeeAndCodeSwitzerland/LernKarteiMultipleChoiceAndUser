@@ -21,9 +21,12 @@ public class MainController {
 	
 	@FXML
 	Button btnMultipleChoiceAddQuestions;
+	@FXML
+	Text txtLabel;
 	
 	public void setMain(MainView mainView) {
-		this.tmain = mainView;	
+		this.tmain = mainView;
+		txtLabel.setText(greet.createGreeting());
 	}
 	
 	
