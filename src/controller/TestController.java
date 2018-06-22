@@ -15,7 +15,7 @@ import view.TestView;
  * here you see what happen when you click on the button
  */
 
-public class Controller {
+public class TestController {
 	
 	private TestView tmain;	
 	
@@ -40,6 +40,7 @@ public class Controller {
 	@FXML
 	Button btnhm;
 	
+	
 	/*
 	 * set the layout to choose a test
 	 */
@@ -47,7 +48,6 @@ public class Controller {
 		this.tmain = testView;		
 		check.setVisible(true);
 		question.setVisible(false);
-		
 	}
 	
 	/*

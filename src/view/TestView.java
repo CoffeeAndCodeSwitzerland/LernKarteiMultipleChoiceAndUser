@@ -1,6 +1,6 @@
 package view;
 
-import controller.Controller;
+import controller.TestController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,7 +21,7 @@ public class TestView extends Application{
 		try {
 			FXMLLoader loader = new FXMLLoader(TestView.class.getResource("layout_chosecheck.fxml"));
 			AnchorPane pane = loader.load();
-			Controller controller = loader.getController();
+			TestController controller = loader.getController();
 			controller.setMain(this);
 			
 			
