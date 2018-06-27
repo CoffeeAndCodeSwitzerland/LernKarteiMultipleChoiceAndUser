@@ -2,7 +2,7 @@ package view;
 
 import javafx.stage.Stage;
 
-public class AddQuestionsView {
+public class AddTestView {
 
 	public void start() {
 		

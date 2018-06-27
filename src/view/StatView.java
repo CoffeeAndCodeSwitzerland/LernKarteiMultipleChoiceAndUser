@@ -43,6 +43,7 @@ public class StatView {
 		BorderPane bp = new BorderPane();
 		
 		bp.setTop(hb);
+		bp.setCenter(createWinLoss());
 		//Stage and stats
 		Stage stats = new Stage();
 		stats.setFullScreen(true);
@@ -73,7 +74,7 @@ public class StatView {
 	}
 	
 	public GridPane createWinLoss() {
-		GridPane gp = createView("Gewinn/Verlust:");
+		GridPane gp = createView("Sieg/Niederlage:");
 		Integer wins = gs.getWins();
 		Integer losses = gs.getLosses();
 		
@@ -88,7 +89,7 @@ public class StatView {
                 new PieChart.Data("Niederlagen", losses));
 		
 		PieChart chart = new PieChart(pieChartDataWinLoss);
-		chart.setTitle("Sieg/Verlust-Verhältnis");
+		chart.setTitle("Sieg/Niederlage-Verhältnis");
 		chart.setLegendSide(Side.RIGHT);
 		chart.setLabelsVisible(false);
 	
@@ -101,9 +102,6 @@ public class StatView {
 		GridPane gp = createView("Spielzeit:");
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
-		
-		Text time = new Text("Gesamthaft gespielt: 213h"); //TODO: add real value
-		time.setFont(Font.font("Verdana",50));
 		
 		yAxis.setLabel("Spielzeit in Stunden");
 		LineChart<Number,Number> lineChart = 
@@ -120,6 +118,9 @@ public class StatView {
         lineChart.getData().add(series);
         
         lineChart.getXAxis().setTickLabelsVisible(false);
+        
+        Text time = new Text("Spielzeit:"); //TODO: add real value
+        time.setFont(Font.font("Verdana",50));
         
         gp.add(time, 2, 2);
         gp.add(lineChart, 1, 2);
