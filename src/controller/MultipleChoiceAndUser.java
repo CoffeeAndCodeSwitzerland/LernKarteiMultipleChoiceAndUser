@@ -10,7 +10,6 @@ public class MultipleChoiceAndUser extends javafx.application.Application{
 	}
 	
 	public void start(Stage primaryStage) {
-		MainView mv = new MainView();
-		mv.start(primaryStage);
+		new MainView().startMyApplication(primaryStage);
 	}
 }

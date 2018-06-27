@@ -1,34 +1,37 @@
 package view;
 
-
 import controller.MainController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-public class MainView extends Application{
-
-	
-	public void start(Stage primaryStage) {
+/**
+ * 
+ * Start the application
+ * @since 27-06-18
+ * @version 1.0
+ * @author GiBr03s
+ * 
+ */
+public class MainView {
+	/**
+	 * Loads the fxml for the layout.
+	 * Set and starts the main-layout/main-menu. 
+	 * @param Stage primaryStage
+	 */
+	public void startMyApplication(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(MainView.class.getResource("MainLayout.fxml"));
 			AnchorPane pane = loader.load();
 			MainController controller = loader.getController();
 			controller.setMain(this);
-			
-			
+
 			Scene scene = new Scene(pane);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		    
-			} catch(Exception e) {
-			e.printStackTrace();
-			}
-		}
 
-public static void main(String[] args) {
-	launch (args);
-}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
