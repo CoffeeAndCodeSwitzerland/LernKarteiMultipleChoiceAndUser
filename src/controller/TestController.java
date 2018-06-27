@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -64,10 +65,17 @@ public class TestController {
 	public void showQuestion() {
 		check.setVisible(false);
 		question.setVisible(true);
-		testfrage.setText("Wie viel % !Wasser auf Erdoberfläche?");
-		ersteAntwort.setText("47%");
-		zweiteAntwort.setText("29%");
-		driteAntwort.setText("14%");
+		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
+		ersteAntwort.setText("56%");
+		zweiteAntwort.setText("71%");
+		driteAntwort.setText("34%");
+		
+		ToggleGroup group = new ToggleGroup();
+
+		ersteAntwort.setToggleGroup(group);
+		zweiteAntwort.setToggleGroup(group);
+		driteAntwort.setToggleGroup(group);
+		ersteAntwort.setSelected(true);
 	}	
 	
 	/*
@@ -83,10 +91,9 @@ public class TestController {
 	 * show the next question
 	 */
 	public void setNextQuestion() {
-		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
-		ersteAntwort.setText("53%");
-		zweiteAntwort.setText("71%");
-		driteAntwort.setText("86%");
+		
+		showQuestion();
+		System.out.println("next question");
 		
 	}
 }
