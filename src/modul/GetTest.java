@@ -1,7 +1,6 @@
 package modul;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +26,6 @@ public class GetTest {
 			String st;
 			  while ((st = br.readLine()) != null)
 			    System.out.println(st);
-			
 			
 			br.close();
 			}
