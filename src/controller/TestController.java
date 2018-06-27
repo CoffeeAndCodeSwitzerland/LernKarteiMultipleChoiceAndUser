@@ -71,7 +71,6 @@ public class TestController {
 		driteAntwort.setText("34%");
 		
 		ToggleGroup group = new ToggleGroup();
-
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
