@@ -118,7 +118,6 @@ public class StatView {
         lineChart.getData().add(series);
         
         lineChart.getXAxis().setTickLabelsVisible(false);
-        
         Text time = new Text("Spielzeit:"); //TODO: add real value
         time.setFont(Font.font("Verdana",50));
         
