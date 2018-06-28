@@ -1,8 +1,13 @@
 package controller;
 
 
+import java.io.File;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -10,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import view.TestView;
+import modul.getStandartPath;
 
 /*
  * this class controls the action of the window from the TestView class
@@ -40,7 +46,14 @@ public class TestController {
 	
 	@FXML
 	Button btnhm;
+
+	@FXML
+	ComboBox<String> testlist;
 	
+	@FXML
+	Button btnts;
+	
+	getStandartPath path = new getStandartPath();
 	
 	/*
 	 * set the layout to choose a test
@@ -49,6 +62,22 @@ public class TestController {
 		this.tmain = testView;		
 		check.setVisible(true);
 		question.setVisible(false);
+		
+		File folder = new File(getStandartPath.getStandartPath()+"\\src\\Tests");
+		File[] listOfFiles = folder.listFiles();
+
+		    for (int i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		        System.out.println("File " + listOfFiles[i].getName());
+		        testlist.getItems().add(listOfFiles[i].getName());
+		      } else if (listOfFiles[i].isDirectory()) {
+		        System.out.println("Directory " + listOfFiles[i].getName());
+		   }
+		}
+		    
+		btnts.setVisible(false);
+
+		   
 	}
 	
 	/*
@@ -94,5 +123,13 @@ public class TestController {
 		showQuestion();
 		System.out.println("next question");
 		
+	}
+	
+	/*
+	 * show the test, choose one of it
+	 */
+	public void chooseATest() {
+		btnts.setVisible(true);
+
 	}
 }
