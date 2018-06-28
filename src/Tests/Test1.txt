@@ -1,6 +1,10 @@
 [Testname][Signature]
-(Frage,A1,A2,A3)
-(Frage,B1,B2,B3)
-(Frage,C1,C2,C3)
-(Frage,D1,D2,D3)
-(Frage,E1,E2,E3)
+(
+Frage,AA1,AA2,AA3,2;Frage,AB1,AB2,AB3,2;Frage,AC1,AC2,AC3,2
+)
+(
+Frage,BA1,BA2,BA3,3;Frage,BB1,BB2,BB3,4;Frage,BC1,BC2,BC3,5
+)
+(
+Frage,CA1,CA2,CA3,7;Frage,CB1,CB2,CB3,2;Frage,CC1,CC2,CC3,5
+)
