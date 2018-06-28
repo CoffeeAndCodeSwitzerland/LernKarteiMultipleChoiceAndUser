@@ -97,7 +97,10 @@ public class GetTest {
 		return chaptersArrayList;
 	}
 
-
+/**
+ * 
+ * @return returns an arraylist with arrays that withold the questions
+ */
 	private static ArrayList<String[]> extractQuestions() {
 		ArrayList<String[]> questionsArrayList = new ArrayList();
 		String tempString = null;
