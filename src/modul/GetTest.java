@@ -11,18 +11,18 @@ import controller.TestController;
 public class GetTest {
 	TestController TestCont = new TestController();
 	getStandartPath gtp = new getStandartPath();
+	static ArrayList<String[]> questionsArrayList = new ArrayList();
 	static String fileName;
 	static char[] fileContent;
 	static String nameOfTest;
 	static String signaturOfAuthor;
 
 	public static void main(String[] args) {
-		
-		
+
 		String filePath = getStandartPath.getStandartPath();
 		fileName = TestController.getTestName();
 
-		getFileContent(filePath+fileName);
+		getFileContent(filePath + fileName);
 		getNameAndSignatur();
 		getTestChapters();
 		extractQuestions();
@@ -38,7 +38,7 @@ public class GetTest {
 		try {
 			fileContent = new Scanner(new File(fullname)).useDelimiter("\\Z").next().toCharArray();
 		} catch (FileNotFoundException e) {
-			System.out.println(">>>File content '"+fullname+"' not found!");
+			System.out.println(">>>File content '" + fullname + "' not found!");
 			e.printStackTrace();
 		}
 	}
@@ -105,20 +105,18 @@ public class GetTest {
 		return chaptersArrayList;
 	}
 
-/**
- * 
- * @return returns an arraylist with arrays that withold the questions
- */
-	private static ArrayList<String[]> extractQuestions() {
-		ArrayList<String[]> questionsArrayList = new ArrayList();
+	/**
+	 * 
+	 * Fills the arraylist with string arrays
+	 */
+	private static void extractQuestions() {
 		String tempString = null;
 		for (int i = 0; i < getTestChapters().size(); i++) {
 			String[] tempQuestions;
 			tempString = getTestChapters().get(i).toString();
 			tempQuestions = tempString.split(";");
-			questionsArrayList.add(i,tempQuestions);
+			questionsArrayList.add(i, tempQuestions);
 			tempString = "";
 		}
-		return questionsArrayList;
 	}
 }
