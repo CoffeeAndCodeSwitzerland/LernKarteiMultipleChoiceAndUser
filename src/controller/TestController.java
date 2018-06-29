@@ -79,7 +79,7 @@ public class TestController {
 		showFalseAnswer.setVisible(false);
 		
 		
-		File folder = new File(getStandartPath.getStandartPath()+"\\src\\Tests");
+		File folder = new File(getStandartPath.getStandartPath());
 		File[] listOfFiles = folder.listFiles();
 
 		    for (int i = 0; i < listOfFiles.length; i++) {

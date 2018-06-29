@@ -3,7 +3,7 @@ package modul;
 import java.io.File;
 
 public class getStandartPath {
-	public static String getStandartPath(String Name) {
+	public static String getStandartPath() {
 		File currentDirFile = new File(".");
 		String helper = currentDirFile.getAbsolutePath();
 		String currentFilePath = "";
@@ -13,7 +13,7 @@ public class getStandartPath {
 		for (int i = 0; i < helper.length() - 1; i++) {
 			currentFilePath += test[i];
 		}
-		currentFilePath = currentFilePath + "src\\Tests\\" + Name;
+		currentFilePath = currentFilePath + "src\\Tests\\";
 		System.out.println(currentFilePath);
 
 		return currentFilePath;

@@ -15,11 +15,11 @@ public class GetTest {
 
 	public static void main(String[] args) {
 		
-		String testName = "Test1.txt";
-		fileName = getStandartPath.getStandartPath(testName);
+		fileName = "Test1.txt";
+		String filePath = getStandartPath.getStandartPath();
 		
 
-		getFileContent(fileName);
+		getFileContent(filePath+fileName);
 		getNameAndSignatur();
 		getTestChapters();
 		extractQuestions();
@@ -31,11 +31,11 @@ public class GetTest {
 	 * @param fileContent
 	 *            is the char array
 	 */
-	private static void getFileContent(String name) {
+	private static void getFileContent(String fullname) {
 		try {
-			fileContent = new Scanner(new File(fileName)).useDelimiter("\\Z").next().toCharArray();
+			fileContent = new Scanner(new File(fullname)).useDelimiter("\\Z").next().toCharArray();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println(">>>File content '"+fullname+"' not found!");
 			e.printStackTrace();
 		}
 	}
@@ -48,26 +48,31 @@ public class GetTest {
 		String Name = ""; // Temp string for name
 		String Signature = ""; // Temo string for signatur
 		boolean gotName = false; // Bool to chekc if the name is already found
-		for (int i = 0; i < fileContent.length; i++) {
-			if (gotName == false) { // If the name is not already found search here
-				if (fileContent[i] == '[') {
-					while (fileContent[i] != ']') {
-						i++;
-						Name += (char) fileContent[i];
+		try {
+			for (int i = 0; i < fileContent.length; i++) {
+				if (gotName == false) { // If the name is not already found search here
+					if (fileContent[i] == '[') {
+						while (fileContent[i] != ']') {
+							i++;
+							Name += (char) fileContent[i];
+						}
+						gotName = true;
+						Name = Name.replace("]", "");// Removes the brackets at the end of the string
 					}
-					gotName = true;
-					Name = Name.replace("]", "");// Removes the brackets at the end of the string
-				}
 
-			} else {
-				if (fileContent[i] == '[') {
-					while (fileContent[i] != ']') {
-						i++;
-						Signature += (char) fileContent[i];
+				} else {
+					if (fileContent[i] == '[') {
+						while (fileContent[i] != ']') {
+							i++;
+							Signature += (char) fileContent[i];
+						}
+						Signature = Signature.replace("]", "");// Removes the brackets at the end of the string
 					}
-					Signature = Signature.replace("]", "");// Removes the brackets at the end of the string
 				}
 			}
+		} catch (Exception e) {
+			System.out.println(">>>File getNameAndSign() '" + Name + "' not possible!");
+			e.printStackTrace();
 		}
 		nameOfTest = Name;
 		signaturOfAuthor = Signature;
