@@ -14,10 +14,10 @@ public class GetTest {
 	static String signaturOfAuthor;
 
 	public static void main(String[] args) {
-
-		String currentFilePath = getStandartPath.getStandartPath();
+		
 		String testName = "Test1.txt";
-		fileName = currentFilePath + "src\\Tests\\" + testName;
+		fileName = getStandartPath.getStandartPath(testName);
+		
 
 		getFileContent(fileName);
 		getNameAndSignatur();

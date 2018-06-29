@@ -2,6 +2,7 @@ package controller;
 
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import view.TestView;
 import modul.getStandartPath;
+import modul.GetTest;
 
 /*
  * this class controls the action of the window from the TestView class
@@ -26,8 +28,18 @@ public class TestController {
 	
 	private TestView tmain;	
 	
+	public String trueAnswer; // TODO:  muss noch beim auslesen in die Variable gespeichert werden
+	
+	String testName = "startwert";
+	
 	@FXML
 	Pane check;
+	
+	@FXML
+	Pane showTrueAnswer;
+	
+	@FXML
+	Pane showFalseAnswer;
 	
 	@FXML 
 	StackPane question;
@@ -52,6 +64,7 @@ public class TestController {
 	
 	@FXML
 	Button btnts;
+
 	
 	getStandartPath path = new getStandartPath();
 	
@@ -62,6 +75,9 @@ public class TestController {
 		this.tmain = testView;		
 		check.setVisible(true);
 		question.setVisible(false);
+		showTrueAnswer.setVisible(false);
+		showFalseAnswer.setVisible(false);
+		
 		
 		File folder = new File(getStandartPath.getStandartPath()+"\\src\\Tests");
 		File[] listOfFiles = folder.listFiles();
@@ -76,6 +92,15 @@ public class TestController {
 		}
 		    
 		btnts.setVisible(false);
+		
+		// get the name of the choose test, testName is the actual test
+		testlist.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+            	testName = newValue;
+            }
+        });
 
 		   
 	}
@@ -94,6 +119,11 @@ public class TestController {
 	public void showQuestion() {
 		check.setVisible(false);
 		question.setVisible(true);
+		
+		
+		System.out.println(testName);
+		
+		
 		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
 		ersteAntwort.setText("56%");
 		zweiteAntwort.setText("71%");
@@ -116,20 +146,37 @@ public class TestController {
 	}
 	
 	/*
-	 * show the next question
-	 */
-	public void setNextQuestion() {
-		
-		showQuestion();
-		System.out.println("next question");
-		
-	}
-	
-	/*
 	 * show the test, choose one of it
 	 */
 	public void chooseATest() {
 		btnts.setVisible(true);
 
 	}
+	
+	/*
+	 * show the next question
+	 */
+	public void setNextQuestion() {
+		checkAnswer();
+		//showQuestion();
+		System.out.println("next question");
+		
+	}
+	
+	/*
+	 * look if the answer is corect or not
+	 */
+	public void checkAnswer() {
+		if( zweiteAntwort.isSelected()) {
+			showTrueAnswer.setVisible(true);
+			
+		}else {
+			showFalseAnswer.setVisible(true);
+		}
+		//showTrueAnswer.setVisible(false);
+		//showFalseAnswer.setVisible(false);
+		
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -100,5 +101,17 @@
             </VBox>
          </children>
       </StackPane>
+      <Pane fx:id="showTrueAnswer" disable="true" layoutX="201.0" layoutY="315.0" prefHeight="74.0" prefWidth="184.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1eff50" height="33.0" layoutX="90.0" layoutY="38.0" rotate="128.7" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1eff50" height="70.0" layoutX="121.0" layoutY="2.0" rotate="33.7" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="showFalseAnswer" disable="true" layoutX="202.0" layoutY="308.0" prefHeight="85.0" prefWidth="216.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1e1e" height="70.0" layoutX="106.0" layoutY="8.0" rotate="45.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1e1e" height="70.0" layoutX="106.0" layoutY="8.0" rotate="135.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
