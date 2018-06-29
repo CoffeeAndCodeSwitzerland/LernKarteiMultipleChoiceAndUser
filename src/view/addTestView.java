@@ -8,22 +8,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /*
- * create a new window where you can create a new test.
+ * create a new window where you can create a new Test.
  */
 
 public class addTestView extends Application{
 
 	private Stage addTestStage = new Stage();
 	
-	public void start(Stage addTestStage) {
+	public void start(Stage primaryStage) {
 		showAddTest();
 	}
 	
 	public void showAddTest() {
 		try {
-			FXMLLoader loaderAddTest = new FXMLLoader(addTestView.class.getResource("AddTest.fxml"));
-			AnchorPane pane = loaderAddTest.load();
-			addTestController controller = loaderAddTest.getController();
+			FXMLLoader loader = new FXMLLoader(TestView.class.getResource("addTest.fxml"));
+			AnchorPane pane = loader.load();
+			addTestController controller = loader.getController();
 			controller.setMain(this);
 			
 			
@@ -35,6 +35,8 @@ public class addTestView extends Application{
 			e.printStackTrace();
 		}
 	}
+	
+	public static void main(String[] args) {
+		launch (args);
+	}
 }
-
-
