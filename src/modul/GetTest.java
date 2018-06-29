@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import controller.TestController;
+
 public class GetTest {
+	TestController TestCont = new TestController();
 	getStandartPath gtp = new getStandartPath();
 	static String fileName;
 	static char[] fileContent;
@@ -15,9 +18,9 @@ public class GetTest {
 
 	public static void main(String[] args) {
 		
-		fileName = "Test1.txt";
-		String filePath = getStandartPath.getStandartPath();
 		
+		String filePath = getStandartPath.getStandartPath();
+		fileName = TestController.getTestName();
 
 		getFileContent(filePath+fileName);
 		getNameAndSignatur();

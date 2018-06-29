@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -25,126 +24,119 @@ import modul.GetTest;
  */
 
 public class TestController {
-	
-	private TestView tmain;	
-	
-	public String trueAnswer; // TODO:  muss noch beim auslesen in die Variable gespeichert werden
-	
-	String testName = "startwert";
-	
+
+	private TestView tmain;
+
+	public String trueAnswer; // TODO: muss noch beim auslesen in die Variable gespeichert werden
+
+	public static String testName = "startwert";
+
 	@FXML
 	Pane check;
-	
+
 	@FXML
 	Pane showTrueAnswer;
-	
+
 	@FXML
 	Pane showFalseAnswer;
-	
-	@FXML 
+
+	@FXML
 	StackPane question;
-	
+
 	@FXML
 	Label testfrage;
-	
+
 	@FXML
 	RadioButton ersteAntwort;
-	
+
 	@FXML
 	RadioButton zweiteAntwort;
-	
+
 	@FXML
 	RadioButton driteAntwort;
-	
+
 	@FXML
 	Button btnhm;
 
 	@FXML
 	ComboBox<String> testlist;
-	
+
 	@FXML
 	Button btnts;
 
-	
 	getStandartPath path = new getStandartPath();
-	
+
 	/*
 	 * set the layout to choose a test
 	 */
 	public void setMain(TestView testView) {
-		this.tmain = testView;		
+		this.tmain = testView;
 		check.setVisible(true);
 		question.setVisible(false);
 		showTrueAnswer.setVisible(false);
 		showFalseAnswer.setVisible(false);
-		
-		
+
 		File folder = new File(getStandartPath.getStandartPath());
 		File[] listOfFiles = folder.listFiles();
 
-		    for (int i = 0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
-		        System.out.println("File " + listOfFiles[i].getName());
-		        testlist.getItems().add(listOfFiles[i].getName());
-		      } else if (listOfFiles[i].isDirectory()) {
-		        System.out.println("Directory " + listOfFiles[i].getName());
-		   }
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				System.out.println("File " + listOfFiles[i].getName());
+				testlist.getItems().add(listOfFiles[i].getName());
+			} else if (listOfFiles[i].isDirectory()) {
+				System.out.println("Directory " + listOfFiles[i].getName());
+			}
 		}
-		    
-		btnts.setVisible(false);
-		
-		// get the name of the choose test, testName is the actual test
-		testlist.getSelectionModel().selectedItemProperty()
-        .addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-            	testName = newValue;
-            }
-        });
 
-		   
+		btnts.setVisible(false);
+
+		// get the name of the choose test, testName is the actual test
+		testlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				testName = newValue;
+			}
+		});
+
 	}
-	
+
 	/*
 	 * close this window and goes back to the MainView
 	 */
 	public void showMainmenue() {
 		Stage stage = (Stage) btnhm.getScene().getWindow();
-	    stage.close();
+		stage.close();
 	}
-	
+
 	/*
 	 * set the layout to answer a question
 	 */
 	public void showQuestion() {
 		check.setVisible(false);
 		question.setVisible(true);
-		
-		
+
 		System.out.println(testName);
-		
-		
+
 		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
 		ersteAntwort.setText("56%");
 		zweiteAntwort.setText("71%");
 		driteAntwort.setText("34%");
-		
+
 		ToggleGroup group = new ToggleGroup();
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
 		ersteAntwort.setSelected(true);
-	}	
-	
+	}
+
 	/*
 	 * goes back to choose a other test
 	 */
 	public void showCheck() {
 		question.setVisible(false);
 		check.setVisible(true);
-		
+
 	}
-	
+
 	/*
 	 * show the test, choose one of it
 	 */
@@ -152,31 +144,44 @@ public class TestController {
 		btnts.setVisible(true);
 
 	}
-	
+
 	/*
 	 * show the next question
 	 */
 	public void setNextQuestion() {
 		checkAnswer();
-		//showQuestion();
+		// showQuestion();
 		System.out.println("next question");
-		
+
 	}
-	
+
 	/*
 	 * look if the answer is corect or not
 	 */
 	public void checkAnswer() {
-		if( zweiteAntwort.isSelected()) {
+		if (zweiteAntwort.isSelected()) {
 			showTrueAnswer.setVisible(true);
-			
-		}else {
+
+		} else {
 			showFalseAnswer.setVisible(true);
 		}
-		//showTrueAnswer.setVisible(false);
-		//showFalseAnswer.setVisible(false);
-		
+		// showTrueAnswer.setVisible(false);
+		// showFalseAnswer.setVisible(false);
+
 	}
-	
-	
+
+	//Only getter and setter from here on
+	/**
+	 * @return the testName
+	 */
+	public static String getTestName() {
+		return testName;
+	}
+
+	/**
+	 * @param testName the testName to set
+	 */
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
 }
