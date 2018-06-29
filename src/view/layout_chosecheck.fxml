@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="panel" prefHeight="400.0" prefWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<AnchorPane id="panel" prefHeight="400.0" prefWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TestController">
    <children>
       <Label id="titel" text="MultipleChoice2018" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
          <font>
@@ -18,7 +19,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label text="Such dir einen Test aus!">
+                  <Label text="Such Sie sich einen Test aus!">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -26,14 +27,14 @@
                         <Insets left="175.0" top="50.0" />
                      </VBox.margin>
                   </Label>
-                  <ComboBox fx:id="testlist" prefWidth="150.0" promptText="welcher Test?">
+                  <ComboBox fx:id="testlist" onAction="#chooseATest" prefWidth="150.0" promptText="welcher Test?" visibleRowCount="20">
                      <VBox.margin>
                         <Insets bottom="10.0" left="200.0" top="30.0" />
                      </VBox.margin>
                   </ComboBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnhm" mnemonicParsing="false" onAction="#showMainmenue" text="Hauptmenue">
+                        <Button fx:id="btnhm" mnemonicParsing="false" onAction="#showMainmenue" text="Hauptmenu">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
@@ -52,7 +53,7 @@
             </VBox>
          </children>
       </Pane>
-      <StackPane fx:id="question" layoutX="89.0" layoutY="108.0" prefHeight="208.0" prefWidth="486.0">
+      <StackPane fx:id="question" layoutY="108.0" prefHeight="239.0" prefWidth="600.0">
          <children>
             <VBox prefHeight="239.0" prefWidth="537.0">
                <children>
@@ -88,7 +89,7 @@
                         </Button>
                         <Button fx:id="nextquestion" mnemonicParsing="false" onAction="#setNextQuestion" text="nächste Frage">
                            <HBox.margin>
-                              <Insets left="200.0" />
+                              <Insets left="320.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -100,5 +101,17 @@
             </VBox>
          </children>
       </StackPane>
+      <Pane fx:id="showTrueAnswer" disable="true" layoutX="201.0" layoutY="315.0" prefHeight="74.0" prefWidth="184.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1eff50" height="33.0" layoutX="90.0" layoutY="38.0" rotate="128.7" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1eff50" height="70.0" layoutX="121.0" layoutY="2.0" rotate="33.7" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="showFalseAnswer" disable="true" layoutX="202.0" layoutY="308.0" prefHeight="85.0" prefWidth="216.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1e1e" height="70.0" layoutX="106.0" layoutY="8.0" rotate="45.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1e1e" height="70.0" layoutX="106.0" layoutY="8.0" rotate="135.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
