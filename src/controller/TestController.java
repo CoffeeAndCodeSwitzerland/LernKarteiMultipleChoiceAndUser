@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,6 +31,9 @@ public class TestController {
 	public String trueAnswer; // TODO: muss noch beim auslesen in die Variable gespeichert werden
 
 	public static String testName = "startwert";
+
+	GetTest getTest = new GetTest();
+	Random rand = new Random();
 
 	@FXML
 	Pane check;
@@ -116,6 +120,7 @@ public class TestController {
 
 		System.out.println(testName);
 
+		getQuestion();
 		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
 		ersteAntwort.setText("56%");
 		zweiteAntwort.setText("71%");
@@ -126,6 +131,17 @@ public class TestController {
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
 		ersteAntwort.setSelected(true);
+	}
+
+	/*
+	 * get the questions out of the file
+	 */
+	public void getQuestion() {
+		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
+			String[] tempArrayString = getTest.questionsArrayList.get(i);
+			String tempString = tempArrayString[rand.nextInt(3)];
+			System.out.println(tempString);
+		}
 	}
 
 	/*
@@ -168,9 +184,11 @@ public class TestController {
 		// showTrueAnswer.setVisible(false);
 		// showFalseAnswer.setVisible(false);
 
+		// gesamt und richtige punkte zählen
+
 	}
 
-	//Only getter and setter from here on
+	// Only getter and setter from here on
 	/**
 	 * @return the testName
 	 */
@@ -179,7 +197,8 @@ public class TestController {
 	}
 
 	/**
-	 * @param testName the testName to set
+	 * @param testName
+	 *            the testName to set
 	 */
 	public void setTestName(String testName) {
 		this.testName = testName;

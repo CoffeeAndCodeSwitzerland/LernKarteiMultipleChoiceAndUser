@@ -3,7 +3,6 @@ package modul;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import controller.TestController;
@@ -11,7 +10,7 @@ import controller.TestController;
 public class GetTest {
 	TestController TestCont = new TestController();
 	getStandartPath gtp = new getStandartPath();
-	static ArrayList<String[]> questionsArrayList = new ArrayList();
+	public static ArrayList<String[]> questionsArrayList = new ArrayList();
 	static String fileName;
 	static char[] fileContent;
 	static String nameOfTest;
