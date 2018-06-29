@@ -115,6 +115,7 @@ public class TestController {
 	 * set the layout to answer a question
 	 */
 	public void showQuestion() {
+		GetTest.startClass(testName);
 		check.setVisible(false);
 		question.setVisible(true);
 

@@ -5,10 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.TestController;
-
 public class GetTest {
-	TestController TestCont = new TestController();
 	getStandartPath gtp = new getStandartPath();
 	public static ArrayList<String[]> questionsArrayList = new ArrayList();
 	static String fileName;
@@ -17,9 +14,11 @@ public class GetTest {
 	static String signaturOfAuthor;
 
 	public static void main(String[] args) {
+	}
 
+	public static void startClass(String fileNameFromTestController) {
 		String filePath = getStandartPath.getStandartPath();
-		fileName = TestController.getTestName();
+		fileName = fileNameFromTestController;
 
 		getFileContent(filePath + fileName);
 		getNameAndSignatur();
