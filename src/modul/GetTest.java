@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Gets the necessary information out of the test file
+ * @author GiBr03
+ *
+ */
 public class GetTest {
 	getStandartPath gtp = new getStandartPath();
 	public static ArrayList<String[]> questionsArrayList = new ArrayList();
@@ -15,7 +19,10 @@ public class GetTest {
 
 	public static void main(String[] args) {
 	}
-
+/**
+ * Start the whole class 
+ * @param fileNameFromTestController is the file name of the test
+ */
 	public static void startClass(String fileNameFromTestController) {
 		String filePath = getStandartPath.getStandartPath();
 		fileName = fileNameFromTestController;

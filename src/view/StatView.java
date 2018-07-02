@@ -26,23 +26,25 @@ public class StatView {
 	GetStats gs = new GetStats();
 	
 	public void start() {
-		//Menu buttons
+		//Initializes the menu buttons
 		Button btnTimePlayed = new Button();
 		Button btnWinLoss = new Button();
 		Button btnCloseStats = new Button();
 		
+		//Sets the text for all those buttons
 		btnWinLoss.setText("Gewinn/Verlust-Statistik");
 		btnTimePlayed.setText("Spielzeit");
 		btnCloseStats.setText("Statistiken schliessen");
-		//Menu box
+		
+		//creates and styles the menu box(the pink one on the top)
 		HBox hb = new HBox();
 		hb.getChildren().addAll(btnWinLoss,btnTimePlayed,btnCloseStats);
 		hb.setStyle("-fx-background-color: #ff69b4;    -fx-padding: 15;\r\n" + 
 					"    -fx-spacing: 10;");
-		
+		//Creates a borderpane and sets the menu box to the top
 		BorderPane bp = new BorderPane();
-		
 		bp.setTop(hb);
+		//sets the win loss to the center as it is the standart 
 		bp.setCenter(createWinLoss());
 		//Stage and stats
 		Stage stats = new Stage();
@@ -83,7 +85,7 @@ public class StatView {
 		
 		games.setFont(Font.font("Verdana",50));
 		
-		
+		//Creates the pie chart
 		ObservableList<PieChart.Data> pieChartDataWinLoss =
                 FXCollections.observableArrayList(
                 new PieChart.Data("Siege",wins),
@@ -98,12 +100,12 @@ public class StatView {
 		gp.add(games, 2, 2);
 		return gp;
 	}
-	
+	//creates the playtime box
 	public GridPane createPlaytime() {
 		GridPane gp = createView("Spielzeit:");
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
-		
+		//Adds the line chart
 		yAxis.setLabel("Spielzeit in Stunden");
 		LineChart<Number,Number> lineChart = 
                 new LineChart<Number,Number>(xAxis,yAxis);
