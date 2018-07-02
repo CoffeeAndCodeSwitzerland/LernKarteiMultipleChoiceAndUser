@@ -1,7 +1,11 @@
 package modul;
 
 import java.util.Random;
-
+/**
+ * Chooses a random greeting for the player
+ * @author GiBr03
+ *
+ */
 public class Greetings {
 	Random rand = new Random();
 	
