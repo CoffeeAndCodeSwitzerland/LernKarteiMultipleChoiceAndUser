@@ -131,7 +131,7 @@ public class TestController {
 	 */
 	public void getQuestion() {
 		
-		random = rnd.nextInt(3);
+		random = rnd.nextInt(2);
 		
 		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
 			String[] tempArrayString = getTest.questionsArrayList.get(i);
@@ -178,7 +178,7 @@ public class TestController {
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
-		ersteAntwort.setSelected(true);
+		//ersteAntwort.setSelected(true);
 	}
 
 	/*
@@ -221,6 +221,7 @@ public class TestController {
 	public void checkAnswer() {
 		if (ersteAntwort.isSelected()) {
 			if (ersteAntwort.getText() == antwort1) {
+				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -228,6 +229,7 @@ public class TestController {
 			}
 		} else if (zweiteAntwort.isSelected()) {
 			if (zweiteAntwort.getText() == antwort1) {
+				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -235,6 +237,7 @@ public class TestController {
 			}
 		} else if (driteAntwort.isSelected()) {
 			if (driteAntwort.getText() == antwort1) {
+				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
