@@ -8,7 +8,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /*
- * create a new window where you can select a test and answer the questions of the selected test
+ * start a new window where you can select a test 
+ * and answer the questions of the selected test
+ * @since 02-07-18
+ * @version 1.0
+ * @author Mischii
  */
 
 public class TestView extends Application{
@@ -16,6 +20,12 @@ public class TestView extends Application{
 	private Stage testStage = new Stage();
 	
 	public void start(Stage primaryStage) {}
+	
+	/**
+	 * Loads the fxml for the layout.
+	 * Set and starts the layout_chosecheck. 
+	 * @param Stage primaryStage
+	 */
 	
 	public void window() {
 		try {
@@ -32,9 +42,5 @@ public class TestView extends Application{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		launch (args);
 	}
 }

@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,20 +20,23 @@ import modul.getStandartPath;
 import modul.GetTest;
 
 /*
- * this class controls the action of the window from the TestView class
- * here you see what happen when you click on the button
+ * This class controls the action of the layout_chosecheck class.
+ * @since 02-07-18
+ * @version 1.0
+ * @author Mischii 
  */
 
 public class TestController {
 
 	private TestView tmain;
 
-	public String trueAnswer; // TODO: muss noch beim auslesen in die Variable gespeichert werden
-
 	public static String testName = "startwert";
 
+	boolean answerChecked = false;
+
 	GetTest getTest = new GetTest();
-	Random rand = new Random();
+	Random rnd = new Random();
+	int random = 0;
 
 	@FXML
 	Pane check;
@@ -68,10 +71,22 @@ public class TestController {
 	@FXML
 	Button btnts;
 
+	@FXML
+	Button nextquestion;
+
 	getStandartPath path = new getStandartPath();
 
+	// question, answer and points
+	String frage;
+	String antwort1;
+	String antwort2;
+	String antwort3;
+	int punkte;
+	int gesamtpunkte;
+	int richtigepunkte = 0;
+
 	/*
-	 * set the layout to choose a test
+	 * set the layout to choose a test and get the names of the tests
 	 */
 	public void setMain(TestView testView) {
 		this.tmain = testView;
@@ -112,37 +127,58 @@ public class TestController {
 	}
 
 	/*
+	 * get the questions out of the file and split the string
+	 */
+	public void getQuestion() {
+		
+		random = rnd.nextInt(3);
+		
+		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
+			String[] tempArrayString = getTest.questionsArrayList.get(i);
+			String tempString = tempArrayString[random];//rnd.nextInt(3)];
+			System.out.println(tempString);
+
+			String[] parts = tempString.split(",");
+			System.out.println("***:"+tempString);
+			frage = parts[0];
+			antwort1 = parts[1];
+			antwort2 = parts[2];
+			antwort3 = parts[3];
+			String punktestring = parts[4];
+
+			punkte = Integer.parseInt(punktestring);
+		}
+	}
+
+	/*
 	 * set the layout to answer a question
 	 */
 	public void showQuestion() {
+		showTrueAnswer.setVisible(false);
+		showFalseAnswer.setVisible(false);
+		
 		GetTest.startClass(testName);
 		check.setVisible(false);
 		question.setVisible(true);
 
 		System.out.println(testName);
+		System.out.println(frage);
+		System.out.println(antwort1);
+		System.out.println(antwort2);
+		System.out.println(antwort3);
 
 		getQuestion();
-		testfrage.setText("Wie viel % Wasser auf Erdoberfläche?");
-		ersteAntwort.setText("56%");
-		zweiteAntwort.setText("71%");
-		driteAntwort.setText("34%");
+
+		testfrage.setText(frage);
+		ersteAntwort.setText(antwort1);
+		zweiteAntwort.setText(antwort2);
+		driteAntwort.setText(antwort3);
 
 		ToggleGroup group = new ToggleGroup();
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
 		ersteAntwort.setSelected(true);
-	}
-
-	/*
-	 * get the questions out of the file
-	 */
-	public void getQuestion() {
-		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
-			String[] tempArrayString = getTest.questionsArrayList.get(i);
-			String tempString = tempArrayString[rand.nextInt(3)];
-			System.out.println(tempString);
-		}
 	}
 
 	/*
@@ -166,26 +202,49 @@ public class TestController {
 	 * show the next question
 	 */
 	public void setNextQuestion() {
-		checkAnswer();
-		// showQuestion();
-		System.out.println("next question");
-
+		if (answerChecked == true) {
+			showQuestion();
+			System.out.println("next question");
+			nextquestion.setText("Antwort überprüfen");
+			answerChecked = false;
+		} else {
+			checkAnswer();
+			nextquestion.setText("Nächste Frage");
+			answerChecked = true;
+		}
+		
 	}
 
 	/*
 	 * look if the answer is corect or not
 	 */
 	public void checkAnswer() {
-		if (zweiteAntwort.isSelected()) {
-			showTrueAnswer.setVisible(true);
-
-		} else {
-			showFalseAnswer.setVisible(true);
+		if (ersteAntwort.isSelected()) {
+			if (ersteAntwort.getText() == antwort1) {
+				showTrueAnswer.setVisible(true);
+				richtigepunkte += punkte;
+			} else {
+				showFalseAnswer.setVisible(true);
+			}
+		} else if (zweiteAntwort.isSelected()) {
+			if (zweiteAntwort.getText() == antwort1) {
+				showTrueAnswer.setVisible(true);
+				richtigepunkte += punkte;
+			} else {
+				showFalseAnswer.setVisible(true);
+			}
+		} else if (driteAntwort.isSelected()) {
+			if (driteAntwort.getText() == antwort1) {
+				showTrueAnswer.setVisible(true);
+				richtigepunkte += punkte;
+			} else {
+				showFalseAnswer.setVisible(true);
+			}
 		}
-		// showTrueAnswer.setVisible(false);
-		// showFalseAnswer.setVisible(false);
+		gesamtpunkte += punkte;
 
-		// gesamt und richtige punkte zählen
+		System.out.println(gesamtpunkte);
+		System.out.println(richtigepunkte);
 
 	}
 
