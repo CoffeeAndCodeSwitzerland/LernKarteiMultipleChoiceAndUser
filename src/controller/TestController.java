@@ -135,7 +135,7 @@ public class TestController {
 		
 		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
 			String[] tempArrayString = getTest.questionsArrayList.get(i);
-			String tempString = tempArrayString[random];//rnd.nextInt(3)];
+			String tempString = tempArrayString[random];
 			System.out.println(tempString);
 
 			String[] parts = tempString.split(",");
