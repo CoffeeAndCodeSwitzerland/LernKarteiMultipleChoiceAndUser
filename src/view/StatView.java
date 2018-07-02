@@ -51,20 +51,21 @@ public class StatView {
 		stats.setScene(new Scene(bp, 900, 900));
 		stats.show();
 		
+		//Button to close the view
 		btnCloseStats.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				stats.close();
 			}			
 		});
-		
+		//Button to set the center to the win loss ratio
 		btnWinLoss.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				bp.setCenter(createWinLoss());
 			}			
 		});
-		
+		//Button to set the center to the playtime 
 		btnTimePlayed.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -72,7 +73,7 @@ public class StatView {
 			}			
 		});
 	}
-	
+	//creates win/loss view
 	public GridPane createWinLoss() {
 		GridPane gp = createView("Sieg/Niederlage:");
 		Integer wins = gs.getWins();
@@ -118,7 +119,7 @@ public class StatView {
         lineChart.getData().add(series);
         
         lineChart.getXAxis().setTickLabelsVisible(false);
-        Text time = new Text("Spielzeit:"); //TODO: add real value
+        Text time = new Text("Spielzeit: 123"); //TODO: add real value
         time.setFont(Font.font("Verdana",50));
         
         gp.add(time, 2, 2);

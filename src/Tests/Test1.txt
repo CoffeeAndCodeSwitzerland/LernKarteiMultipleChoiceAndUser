@@ -1,10 +1,16 @@
 [Testname][Signature]
 (
-Frage,AA1,AA2,AA3,2;Frage,AB1,AB2,AB3,2;Frage,AC1,AC2,AC3,2
+Wie heisst Giannin zum Nachnamen?,Brandenberger,The holy and migthy Jesus,Beery,2;
+Wie heisst Michèle zum Nachnamen?,Habegger, Pädi,Doesnt matter shes a woman,2;
+Welche Haarfarbe hat Thierry,Unterschiedlich,Pink,Orangengelb,2
 )
 (
-Frage,BA1,BA2,BA3,3;Frage,BB1,BB2,BB3,4;Frage,BC1,BC2,BC3,5
+Ist Javascript eine logische Programmiersprache?,Nein,Ja,Sicher,3;
+Ist Python geil?,Ja,Nein,Negativ,4;
+Ist HTML toll?,Ja,Ich benutze lieber direkt Wordpress,Nein ich möchte mich als Idiot outen,5
 )
 (
-Frage,CA1,CA2,CA3,7;Frage,CB1,CB2,CB3,2;Frage,CC1,CC2,CC3,5
+Die Quadratwurzel aus 1024,32,Ich möchte mich als mathametischer Banause äussern,sr(10),7;
+Ist der Baum grün?,Nein,Ja,Er ist azurfarben mit einem leichten Schuss lila und gelben Blumen,2;
+Wie gross ist Cédric,Klein,Cédric > Pädi,Cédric ist praktisch Shrek,5
 )
