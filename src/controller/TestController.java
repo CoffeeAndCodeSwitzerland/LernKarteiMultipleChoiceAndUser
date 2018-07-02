@@ -187,7 +187,6 @@ public class TestController {
 	public void showCheck() {
 		question.setVisible(false);
 		check.setVisible(true);
-
 	}
 
 	/*
