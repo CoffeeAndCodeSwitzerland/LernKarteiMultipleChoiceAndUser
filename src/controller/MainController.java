@@ -12,19 +12,25 @@ import modul.Greetings;
 import view.MainView;
 import view.StatView;
 import view.TestView;
-
+import view.addTestView;
+/**
+ * Opens and closes scenes
+ * @author GiBr03
+ *
+ */
 public class MainController {
 	
 	Greetings greet = new Greetings();
 	TestView tv;
 	StatView sv;
+	addTestView atv;
 	Database db = new Database();
 	
 	private MainView tmain;	
 	
 	Text greetings = new Text(greet.createGreeting());
 	
-	@FXML
+	@FXML 
 	Button btnMultipleChoiceAddQuestions;
 	@FXML
 	Text txtLabel;
@@ -42,7 +48,9 @@ public class MainController {
 		fadeTran.setAutoReverse(true);
 		fadeTran.play();
 	}
-	
+	/**
+	 * Makes the text effekt for the greeting
+	 */
 	private void textEffect() {
 		for(int i = 0; i > -1; i ++) {
 			double opacity = 1;
@@ -79,8 +87,8 @@ public class MainController {
 	}
 
 	public void CreatNewTest() {
-		Stage stage = (Stage) btnMultipleChoiceAddQuestions.getScene().getWindow();
-	    stage.close();
+		atv = new addTestView();
+		atv.showAddTest();
 	}
 
 }
