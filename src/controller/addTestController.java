@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import javafx.beans.value.ChangeListener;
@@ -10,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import modul.getStandartPath;
 /*import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +53,7 @@ public class addTestController {
 	@FXML private Pane editQuestion;
 	@FXML private Button btnAddQuestion;
 	@FXML private Button btnSaveQuestion;
+	@FXML private Button btnCreateTest;
 	@FXML private TextField testName;
 	@FXML private TextField signature;
 	@FXML private TextField question;
@@ -147,7 +152,14 @@ public class addTestController {
 	}
 	
 	public void createTest() {
-	
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(getStandartPath.getStandartPath()+testName.getText()+".txt", "UTF-8");
+			writer.println("["+testName.getText()+"]["+signature.getText()+"]");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	} 
 }
 
