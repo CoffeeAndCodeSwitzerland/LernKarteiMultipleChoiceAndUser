@@ -7,6 +7,8 @@ import java.util.Random;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -183,12 +185,6 @@ public class TestController {
 		check.setVisible(false);
 		question.setVisible(true);
 
-		System.out.println(testName);
-		System.out.println(frage);
-		System.out.println(antwort1);
-		System.out.println(antwort2);
-		System.out.println(antwort3);
-
 		getQuestionsArray();
 		splitQuestions();
 
@@ -201,7 +197,10 @@ public class TestController {
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
-		// ersteAntwort.setSelected(true);
+
+		ersteAntwort.setSelected(false);
+		zweiteAntwort.setSelected(false);
+		driteAntwort.setSelected(false);
 
 	}
 
@@ -225,26 +224,35 @@ public class TestController {
 	 * show the next question
 	 */
 	public void setNextQuestion() {
-		if (answerChecked == true) {
-			if (questionCounter < arraySize - 1) {
-				System.out.println("QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
-				questionCounter += 1;
-				showQuestion();
-				nextquestion.setText("Antwort überprüfen");
-				answerChecked = false;
-				getTest.questionsArrayList.clear();
+		if (ersteAntwort.isSelected() | zweiteAntwort.isSelected()
+				| driteAntwort.isSelected()) {
+			if (answerChecked == true) {
+				if (questionCounter < arraySize - 1) {
+					System.out.println(
+							"QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
+					questionCounter += 1;
+					showQuestion();
+					nextquestion.setText("Antwort überprüfen");
+					answerChecked = false;
+					getTest.questionsArrayList.clear();
+				} else {
+					check.setVisible(false);
+					question.setVisible(false);
+					showTrueAnswer.setVisible(false);
+					showFalseAnswer.setVisible(false);
+					showScore.setVisible(true);
+					score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
+				}
 			} else {
-				check.setVisible(false);
-				question.setVisible(false);
-				showTrueAnswer.setVisible(false);
-				showFalseAnswer.setVisible(false);
-				showScore.setVisible(true);
-				score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
+				checkAnswer();
+				nextquestion.setText("Nächste Frage");
+				answerChecked = true;
 			}
-		} else {
-			checkAnswer();
-			nextquestion.setText("Nächste Frage");
-			answerChecked = true;
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Fehler");
+			alert.setHeaderText(null);
+			alert.setContentText("Bitte wählen Sie eine Antwort aus");
 		}
 
 	}
@@ -255,7 +263,6 @@ public class TestController {
 	public void checkAnswer() {
 		if (ersteAntwort.isSelected()) {
 			if (ersteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -263,7 +270,6 @@ public class TestController {
 			}
 		} else if (zweiteAntwort.isSelected()) {
 			if (zweiteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -271,7 +277,6 @@ public class TestController {
 			}
 		} else if (driteAntwort.isSelected()) {
 			if (driteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -279,9 +284,6 @@ public class TestController {
 			}
 		}
 		gesamtpunkte += punkte;
-
-		System.out.println("Gesamtpunkte: " + gesamtpunkte);
-		System.out.println("Richtige Punkte: " + richtigepunkte);
 
 	}
 

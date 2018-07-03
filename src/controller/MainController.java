@@ -51,29 +51,6 @@ public class MainController {
 	}
 
 	/**
-	 * Makes the text effekt for the greeting
-	 */
-	private void textEffect() {
-		for (int i = 0; i > -1; i++) {
-			double opacity = 1;
-			boolean plusOrMinus = false;
-			if (plusOrMinus == false) {
-				for (double x = 1; x > 0; x -= 0.01) {
-					opacity -= 0.01;
-					txtLabel.setOpacity(opacity);
-				}
-				plusOrMinus = true;
-			} else if (plusOrMinus == true) {
-				for (double x = 0.01; x > 0; x += 0.01) {
-					opacity += 0.01;
-					txtLabel.setOpacity(opacity);
-				}
-				plusOrMinus = false;
-			}
-		}
-	}
-
-	/**
 	 * Opens the statistics
 	 */
 	public void OpenStats() {
