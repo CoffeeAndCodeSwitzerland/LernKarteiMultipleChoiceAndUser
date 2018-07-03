@@ -10,7 +10,7 @@
 
 <AnchorPane id="panel" fx:id="pane" prefHeight="400.0" prefWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addTestController">
    <children>
-      <Pane fx:id="testProperties" prefHeight="400.0" prefWidth="600.0" visible="false">
+      <Pane fx:id="testProperties" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Test erstellen">
                <font>
@@ -34,41 +34,16 @@
             </Label>
             <TextField fx:id="testName" layoutX="226.0" layoutY="61.0" />
             <TextField fx:id="signature" layoutX="226.0" layoutY="86.0" />
-            <ComboBox layoutX="225.0" layoutY="133.0" prefWidth="150.0" />
-            <Button layoutX="382.0" layoutY="133.0" mnemonicParsing="false" text="Bearbeiten" />
-            <Button fx:id="btnCreateTheme" layoutX="461.0" layoutY="133.0" mnemonicParsing="false" onAction="#createTheme" text="Nues Thema erstellen" />
+            <ComboBox fx:id="boxQuestions" layoutX="225.0" layoutY="133.0" prefWidth="150.0" />
+            <Button fx:id="btnEditQuestion" layoutX="382.0" layoutY="133.0" mnemonicParsing="false" onAction="#editQuestion" text="Bearbeiten" />
+            <Button fx:id="btnAddQuestion" layoutX="461.0" layoutY="133.0" mnemonicParsing="false" onAction="#addQuestion" text="Neue Frage hinzufügen" />
             <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Hauptmenü" />
-            <Button fx:id="btnCreateTest" layoutX="500.0" layoutY="361.0" mnemonicParsing="false" onAction="#createTest" text="Test erstellen" />
-         </children>
-      </Pane>
-      <Pane fx:id="themeProperties" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Thema">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="62.0" text="Thema-Name">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="121.0" text="Frage">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <ComboBox layoutX="216.0" layoutY="121.0" prefWidth="150.0" />
-            <Button layoutX="372.0" layoutY="121.0" mnemonicParsing="false" text="Bearbeiten" />
-            <Button fx:id="btnAddQuestion" layoutX="452.0" layoutY="121.0" mnemonicParsing="false" onAction="#addQuestions" text="Neue Frage hinzufügen" />
-            <Button layoutX="18.0" layoutY="361.0" mnemonicParsing="false" text="Zurück | Abbrechen" />
-            <Button fx:id="btnSaveTheme" layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveTheme" text="Speichern" />
-            <TextField fx:id="themeName" layoutX="217.0" layoutY="62.0" />
+            <Button fx:id="btnCreateTest" layoutX="500.0" layoutY="361.0" mnemonicParsing="false" text="Test erstellen" />
          </children>
       </Pane>
       <Pane fx:id="addQuestion" prefHeight="400.0" prefWidth="600.0" visible="false">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Frage Nr.">
+            <Label fx:id="lblQuestion" layoutX="14.0" layoutY="14.0" text="Frage Nr.">
                <font>
                   <Font size="20.0" />
                </font>
@@ -93,12 +68,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="226.0" layoutY="56.0" />
-            <TextField layoutX="226.0" layoutY="81.0" />
-            <TextField layoutX="226.0" layoutY="106.0" />
-            <TextField layoutX="226.0" layoutY="131.0" />
-            <Button layoutX="10.0" layoutY="361.0" mnemonicParsing="false" text="Zurück | Abbrechen" />
-            <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" text="Speichern" />
+            <TextField fx:id="question" layoutX="226.0" layoutY="56.0" />
+            <TextField fx:id="answer1" layoutX="226.0" layoutY="81.0" />
+            <TextField fx:id="answer2" layoutX="226.0" layoutY="106.0" />
+            <TextField fx:id="answer3" layoutX="226.0" layoutY="131.0" />
+            <Button fx:id="btnBack" layoutX="10.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" text="Zurück | Abbrechen" />
+            <Button fx:id="btnSaveQuestion" layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveQuestion" text="Speichern" />
          </children>
       </Pane>
    </children>
