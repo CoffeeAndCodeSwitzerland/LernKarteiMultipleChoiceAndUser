@@ -99,6 +99,9 @@ public class TestController {
 	Integer questionCounter = 0;
 	Integer arraySize;
 	Boolean firstTime = true;
+	Boolean a1 = false;
+	Boolean a2 = false;
+	Boolean a3 = false;
 	Random rand = new Random();
 
 	/*
@@ -158,7 +161,7 @@ public class TestController {
 	}
 
 	public void splitQuestions() {
-		String tempString = getQuestionsArray()[rand.nextInt(3)];// TODO: fix the random
+		String tempString = getQuestionsArray()[rand.nextInt(3)];
 
 		String[] parts = tempString.split(",");
 		frage = parts[0];
@@ -166,11 +169,10 @@ public class TestController {
 		antwort2 = parts[2];
 		antwort3 = parts[3];
 		String punktestring = parts[4];
-		System.out.println("Points my dude: " + punktestring);
 		try {
 			punkte = Integer.parseInt(punktestring);
 		} catch (Exception e) {
-			System.out.println("Ups: " + e);
+			System.out.println(">>>Error: " + e);
 		}
 	}
 
@@ -189,8 +191,8 @@ public class TestController {
 		splitQuestions();
 
 		testfrage.setText(frage);
-		ersteAntwort.setText(antwort1);
-		zweiteAntwort.setText(antwort2);
+		ersteAntwort.setText(antwort2);
+		zweiteAntwort.setText(antwort1);
 		driteAntwort.setText(antwort3);
 
 		ToggleGroup group = new ToggleGroup();
@@ -248,7 +250,7 @@ public class TestController {
 				nextquestion.setText("Nächste Frage");
 				answerChecked = true;
 			}
-		}else {
+		}else {//TODO: make that this apears
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Fehler");
 			alert.setHeaderText(null);
