@@ -18,7 +18,7 @@ public class Greetings {
 	// Chooses a random greeting
 	public String createGreeting() {
 		String greeting = "Willkommen zurück";
-		Integer number = rand.nextInt(8);
+		Integer number = rand.nextInt(7);
 		switch (number) {
 		case 1:
 			greeting = "Grüsse Reisender";

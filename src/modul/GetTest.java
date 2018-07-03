@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Gets the necessary information out of the test file
+ * 
  * @author GiBr03
  *
  */
@@ -19,10 +21,13 @@ public class GetTest {
 
 	public static void main(String[] args) {
 	}
-/**
- * Start the whole class 
- * @param fileNameFromTestController is the file name of the test
- */
+
+	/**
+	 * Start the whole class
+	 * 
+	 * @param fileNameFromTestController
+	 *            is the file name of the test
+	 */
 	public static void startClass(String fileNameFromTestController) {
 		String filePath = getStandartPath.getStandartPath();
 		fileName = fileNameFromTestController;
@@ -54,7 +59,7 @@ public class GetTest {
 	 */
 	private static void getNameAndSignatur() {
 		String Name = ""; // Temp string for name
-		String Signature = ""; // Temo string for signatur
+		String Signature = ""; // Temp string for signature
 		boolean gotName = false; // Bool to chekc if the name is already found
 		try {
 			for (int i = 0; i < fileContent.length; i++) {

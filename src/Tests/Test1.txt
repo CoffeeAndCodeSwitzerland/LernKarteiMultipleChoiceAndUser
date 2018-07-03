@@ -1,7 +1,7 @@
 [Testname][Signature]
 (
 Wie heisst Giannin zum Nachnamen?,Brandenberger,The holy and migthy Jesus,Beery,2;
-Wie heisst Michèle zum Nachnamen?,Habegger,Pädi,Doesnt matter shes a woman,2;
+Wie heisst Michèle zum Nachnamen?,Habegger,Pädi,Doesnt matter she is a woman,2;
 Welche Haarfarbe hat Thierry,Unterschiedlich,Pink,Orangengelb,2
 )
 (

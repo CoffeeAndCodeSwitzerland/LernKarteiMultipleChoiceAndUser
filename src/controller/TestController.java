@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -85,6 +86,11 @@ public class TestController {
 	int gesamtpunkte;
 	int richtigepunkte = 0;
 
+	Integer questionCounter = 0;
+	Integer arraySize;
+	Boolean firstTime = true;
+	Random rand = new Random();
+
 	/*
 	 * set the layout to choose a test and get the names of the tests
 	 */
@@ -108,13 +114,13 @@ public class TestController {
 		}
 
 		btnts.setVisible(false);
-
 		// get the name of the choose test, testName is the actual test
 		testlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				testName = newValue;
 			}
-		});
+		}
+			);
 
 	}
 
@@ -129,25 +135,31 @@ public class TestController {
 	/*
 	 * get the questions out of the file and split the string
 	 */
-	public void getQuestion() {
-		
-		random = rnd.nextInt(2);
-		
-		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
-			String[] tempArrayString = getTest.questionsArrayList.get(i);
-			String tempString = tempArrayString[random];
-			System.out.println(tempString);
-
-			String[] parts = tempString.split(",");
-			System.out.println("***:"+tempString);
-			frage = parts[0];
-			antwort1 = parts[1];
-			antwort2 = parts[2];
-			antwort3 = parts[3];
-			String punktestring = parts[4];
-
-			punkte = Integer.parseInt(punktestring);
+	public String[] getQuestionsArray() {
+		if(firstTime == true) {
+			arraySize = getTest.questionsArrayList.size();
+			System.out.println("Arraysize: " + arraySize);
+			firstTime = false;
 		}
+		String[] tempArrayString = null;
+		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
+			tempArrayString = getTest.questionsArrayList.get(questionCounter);
+		}
+		System.out.println("Temp: " + Arrays.toString(tempArrayString));
+		return tempArrayString;
+	}
+
+	public void splitQuestions() {
+		String tempString = getQuestionsArray()[rand.nextInt(3)];// TODO: fix the random
+
+		String[] parts = tempString.split(",");
+		frage = parts[0];
+		antwort1 = parts[1];
+		antwort2 = parts[2];
+		antwort3 = parts[3];
+		String punktestring = parts[4];
+
+		// punkte = Integer.parseInt(punktestring);
 	}
 
 	/*
@@ -156,7 +168,7 @@ public class TestController {
 	public void showQuestion() {
 		showTrueAnswer.setVisible(false);
 		showFalseAnswer.setVisible(false);
-		
+
 		GetTest.startClass(testName);
 		check.setVisible(false);
 		question.setVisible(true);
@@ -167,7 +179,8 @@ public class TestController {
 		System.out.println(antwort2);
 		System.out.println(antwort3);
 
-		getQuestion();
+		getQuestionsArray();
+		splitQuestions();
 
 		testfrage.setText(frage);
 		ersteAntwort.setText(antwort1);
@@ -178,7 +191,8 @@ public class TestController {
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
-		//ersteAntwort.setSelected(true);
+		// ersteAntwort.setSelected(true);
+
 	}
 
 	/*
@@ -202,16 +216,22 @@ public class TestController {
 	 */
 	public void setNextQuestion() {
 		if (answerChecked == true) {
-			showQuestion();
-			System.out.println("next question");
-			nextquestion.setText("Antwort überprüfen");
-			answerChecked = false;
+			if (questionCounter < arraySize-1) {
+				System.out.println("QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
+				questionCounter += 1;
+				showQuestion();
+				System.out.println("next question");
+				nextquestion.setText("Antwort überprüfen");
+				answerChecked = false;
+			} else {
+				System.out.println("You have finished this my son");
+			}
 		} else {
 			checkAnswer();
 			nextquestion.setText("Nächste Frage");
 			answerChecked = true;
 		}
-		
+
 	}
 
 	/*
@@ -245,8 +265,8 @@ public class TestController {
 		}
 		gesamtpunkte += punkte;
 
-		System.out.println(gesamtpunkte);
-		System.out.println(richtigepunkte);
+		System.out.println("Gesamtpunkte: " + gesamtpunkte);
+		System.out.println("Richtige Punkte: " +richtigepunkte);
 
 	}
 
@@ -264,5 +284,11 @@ public class TestController {
 	 */
 	public void setTestName(String testName) {
 		this.testName = testName;
+	}
+	/**
+	 * 
+	 */
+	public void getQuestionsArraySize(){
+		arraySize = getTest.questionsArrayList.size();
 	}
 }
