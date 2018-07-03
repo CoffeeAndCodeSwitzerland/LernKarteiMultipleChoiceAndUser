@@ -89,13 +89,14 @@ public class addTestController {
 			}
 			
 			
-			System.out.println(questions.get("question"+numberOfQuestions));
+			System.out.println("Frage: "+questions.get("question"+numberOfQuestions));
 			for(int i = 0; i < 3; i++) {
-				System.out.println(questions.get("q"+numberOfQuestions+"answer"+i));
+				System.out.println("Antwort "+i+":"+questions.get("q"+numberOfQuestions+"answer"+i));
 			}
 			currentQuestion = "Frage: "+numberOfQuestions+", "+question.getText();
 			writeQuestionInBox();	
 			numberOfQuestions++;
+			System.out.println("New Question saved");
 		}
 		testProperties.setVisible(true);
 		addQuestion.setVisible(false);
