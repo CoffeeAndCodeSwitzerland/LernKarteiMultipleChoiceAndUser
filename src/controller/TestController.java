@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -74,16 +73,15 @@ public class TestController {
 
 	@FXML
 	Button nextquestion;
-	
+
 	@FXML
 	Button finishedTest;
-	
+
 	@FXML
 	Label score;
-	
+
 	@FXML
 	Pane showScore;
-	
 
 	getStandartPath path = new getStandartPath();
 
@@ -124,14 +122,13 @@ public class TestController {
 			}
 		}
 		btnts.setVisible(false);
-		
+
 		// get the name of the choose test, testName is the actual test
 		testlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				testName = newValue;
 			}
-		}
-			);
+		});
 
 	}
 
@@ -147,10 +144,8 @@ public class TestController {
 	 * get the questions out of the file and split the string
 	 */
 	public String[] getQuestionsArray() {
-		if(firstTime == true) {
+		if (firstTime == true) {
 			arraySize = getTest.questionsArrayList.size();
-			System.out.println("Arraysize: " + arraySize);
-			firstTime = false;
 		}
 		String[] tempArrayString = null;
 		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
@@ -169,8 +164,12 @@ public class TestController {
 		antwort2 = parts[2];
 		antwort3 = parts[3];
 		String punktestring = parts[4];
-
-		punkte = Integer.parseInt(punktestring);
+		System.out.println("Points my dude: " + punktestring);
+		try {
+			punkte = Integer.parseInt(punktestring);
+		} catch (Exception e) {
+			System.out.println("Ups: " + e);
+		}
 	}
 
 	/*
@@ -227,13 +226,13 @@ public class TestController {
 	 */
 	public void setNextQuestion() {
 		if (answerChecked == true) {
-			if (questionCounter < arraySize-1) {
+			if (questionCounter < arraySize - 1) {
 				System.out.println("QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
 				questionCounter += 1;
 				showQuestion();
-				System.out.println("next question");
 				nextquestion.setText("Antwort überprüfen");
 				answerChecked = false;
+				getTest.questionsArrayList.clear();
 			} else {
 				check.setVisible(false);
 				question.setVisible(false);
@@ -241,7 +240,6 @@ public class TestController {
 				showFalseAnswer.setVisible(false);
 				showScore.setVisible(true);
 				score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
-				System.out.println("You have finished this my son");
 			}
 		} else {
 			checkAnswer();
@@ -283,14 +281,14 @@ public class TestController {
 		gesamtpunkte += punkte;
 
 		System.out.println("Gesamtpunkte: " + gesamtpunkte);
-		System.out.println("Richtige Punkte: " +richtigepunkte);
+		System.out.println("Richtige Punkte: " + richtigepunkte);
 
 	}
-	
+
 	/*
 	 * bring you back to the main menu when the test is finished
 	 */
-	public void finishedTest(){
+	public void finishedTest() {
 		Stage stage = (Stage) btnhm.getScene().getWindow();
 		stage.close();
 	}
@@ -310,10 +308,11 @@ public class TestController {
 	public void setTestName(String testName) {
 		this.testName = testName;
 	}
+
 	/**
 	 * 
 	 */
-	public void getQuestionsArraySize(){
+	public void getQuestionsArraySize() {
 		arraySize = getTest.questionsArrayList.size();
 	}
 }
