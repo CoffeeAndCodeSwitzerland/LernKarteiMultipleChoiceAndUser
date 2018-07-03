@@ -74,6 +74,16 @@ public class TestController {
 
 	@FXML
 	Button nextquestion;
+	
+	@FXML
+	Button finishedTest;
+	
+	@FXML
+	Label score;
+	
+	@FXML
+	Pane showScore;
+	
 
 	getStandartPath path = new getStandartPath();
 
@@ -100,6 +110,7 @@ public class TestController {
 		question.setVisible(false);
 		showTrueAnswer.setVisible(false);
 		showFalseAnswer.setVisible(false);
+		showScore.setVisible(false);
 
 		File folder = new File(getStandartPath.getStandartPath());
 		File[] listOfFiles = folder.listFiles();
@@ -112,8 +123,8 @@ public class TestController {
 				System.out.println("Directory " + listOfFiles[i].getName());
 			}
 		}
-
 		btnts.setVisible(false);
+		
 		// get the name of the choose test, testName is the actual test
 		testlist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -159,7 +170,7 @@ public class TestController {
 		antwort3 = parts[3];
 		String punktestring = parts[4];
 
-		// punkte = Integer.parseInt(punktestring);
+		punkte = Integer.parseInt(punktestring);
 	}
 
 	/*
@@ -224,6 +235,12 @@ public class TestController {
 				nextquestion.setText("Antwort überprüfen");
 				answerChecked = false;
 			} else {
+				check.setVisible(false);
+				question.setVisible(false);
+				showTrueAnswer.setVisible(false);
+				showFalseAnswer.setVisible(false);
+				showScore.setVisible(true);
+				score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
 				System.out.println("You have finished this my son");
 			}
 		} else {
@@ -235,7 +252,7 @@ public class TestController {
 	}
 
 	/*
-	 * look if the answer is corect or not
+	 * look if the answer is correct or not
 	 */
 	public void checkAnswer() {
 		if (ersteAntwort.isSelected()) {
@@ -268,6 +285,14 @@ public class TestController {
 		System.out.println("Gesamtpunkte: " + gesamtpunkte);
 		System.out.println("Richtige Punkte: " +richtigepunkte);
 
+	}
+	
+	/*
+	 * bring you back to the main menu when the test is finished
+	 */
+	public void finishedTest(){
+		Stage stage = (Stage) btnhm.getScene().getWindow();
+		stage.close();
 	}
 
 	// Only getter and setter from here on
