@@ -174,22 +174,26 @@ public class TestController {
 			System.out.println(">>>Error: " + e);
 		}
 	}
-
+	/**
+	 * Arranges the questions randomly
+	 */
 	public void arrangeQuestions() {
 		String[] tempString = {antwort1, antwort2, antwort3};
 		String[] answersString = new String[3];
 		Integer[] answersPosition = new Integer[3];
 		for(int i = 0;i < 3; i++) {
 			System.out.println("Int i: " + i);
-			Integer random;
+			Integer random;//Is the postition of the answer will be generated randomly
 			random = rand.nextInt(3);
-			while(random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {
+			while(random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {//Checks if the place is already occupied
 				random = rand.nextInt(3);
 			}
 			answersPosition[i] = random;
 			answersString[i] = tempString[answersPosition[i]];
+			/*Uncomment to better understand the concept
 			System.out.println("Positions: " + Arrays.toString(answersPosition));
 			System.out.println("Answers: " + Arrays.toString(answersString));
+			*/
 			ersteAntwort.setText(answersString[0]);
 			zweiteAntwort.setText(answersString[1]);
 			driteAntwort.setText(answersString[2]);
