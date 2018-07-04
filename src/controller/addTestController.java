@@ -156,6 +156,24 @@ public class addTestController {
 		try {
 			writer = new PrintWriter(getStandartPath.getStandartPath()+testName.getText()+".txt", "UTF-8");
 			writer.println("["+testName.getText()+"]["+signature.getText()+"]");
+			System.out.println(getStandartPath.getStandartPath());
+			
+			for(int x = 0; x <= numberOfQuestions-2; x += 3) {
+				writer.println("(");
+				for(int i = 1+x; i <= x+3; i++) {
+					writer.println(questions.get("question"+i)+""
+							+ ","+questions.get("q"+i+"answer0")+""
+							+ ","+questions.get("q"+i+"answer1")+""
+							+ ","+questions.get("q"+i+"answer2")+",1;");
+				}	
+				writer.println(")");	
+			}
+			
+			for(int i = 0; i < fields.length; i++) {
+				fields[i].setText("");//Delete the values.
+			}
+			
+			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
