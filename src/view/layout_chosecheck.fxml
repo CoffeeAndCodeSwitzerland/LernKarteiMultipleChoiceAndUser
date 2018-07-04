@@ -113,5 +113,15 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1e1e" height="70.0" layoutX="106.0" layoutY="8.0" rotate="135.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
          </children>
       </Pane>
+      <Pane fx:id="showScore" layoutY="100.0" prefHeight="301.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btnhauptmenu" layoutX="251.0" layoutY="219.0" mnemonicParsing="false" onAction="#finishedTest" text="Hauptmenu" />
+            <Label fx:id="score" layoutX="35.0" layoutY="37.0" prefHeight="35.0" prefWidth="515.0" text="score">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -1,12 +1,14 @@
 package controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -74,6 +76,15 @@ public class TestController {
 	@FXML
 	Button nextquestion;
 
+	@FXML
+	Button finishedTest;
+
+	@FXML
+	Label score;
+
+	@FXML
+	Pane showScore;
+
 	getStandartPath path = new getStandartPath();
 
 	// question, answer and points
@@ -85,6 +96,14 @@ public class TestController {
 	int gesamtpunkte;
 	int richtigepunkte = 0;
 
+	Integer questionCounter = 0;
+	Integer arraySize;
+	Boolean firstTime = true;
+	Boolean a1 = false;
+	Boolean a2 = false;
+	Boolean a3 = false;
+	Random rand = new Random();
+
 	/*
 	 * set the layout to choose a test and get the names of the tests
 	 */
@@ -94,6 +113,7 @@ public class TestController {
 		question.setVisible(false);
 		showTrueAnswer.setVisible(false);
 		showFalseAnswer.setVisible(false);
+		showScore.setVisible(false);
 
 		File folder = new File(getStandartPath.getStandartPath());
 		File[] listOfFiles = folder.listFiles();
@@ -106,7 +126,6 @@ public class TestController {
 				System.out.println("Directory " + listOfFiles[i].getName());
 			}
 		}
-
 		btnts.setVisible(false);
 
 		// get the name of the choose test, testName is the actual test
@@ -129,24 +148,31 @@ public class TestController {
 	/*
 	 * get the questions out of the file and split the string
 	 */
-	public void getQuestion() {
-		
-		random = rnd.nextInt(2);
-		
+	public String[] getQuestionsArray() {
+		if (firstTime == true) {
+			arraySize = getTest.questionsArrayList.size();
+		}
+		String[] tempArrayString = null;
 		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
-			String[] tempArrayString = getTest.questionsArrayList.get(i);
-			String tempString = tempArrayString[random];
-			System.out.println(tempString);
+			tempArrayString = getTest.questionsArrayList.get(questionCounter);
+		}
+		System.out.println("Temp: " + Arrays.toString(tempArrayString));
+		return tempArrayString;
+	}
 
-			String[] parts = tempString.split(",");
-			System.out.println("***:"+tempString);
-			frage = parts[0];
-			antwort1 = parts[1];
-			antwort2 = parts[2];
-			antwort3 = parts[3];
-			String punktestring = parts[4];
+	public void splitQuestions() {
+		String tempString = getQuestionsArray()[rand.nextInt(3)];
 
+		String[] parts = tempString.split(",");
+		frage = parts[0];
+		antwort1 = parts[1];
+		antwort2 = parts[2];
+		antwort3 = parts[3];
+		String punktestring = parts[4];
+		try {
 			punkte = Integer.parseInt(punktestring);
+		} catch (Exception e) {
+			System.out.println(">>>Error: " + e);
 		}
 	}
 
@@ -156,29 +182,28 @@ public class TestController {
 	public void showQuestion() {
 		showTrueAnswer.setVisible(false);
 		showFalseAnswer.setVisible(false);
-		
+
 		GetTest.startClass(testName);
 		check.setVisible(false);
 		question.setVisible(true);
 
-		System.out.println(testName);
-		System.out.println(frage);
-		System.out.println(antwort1);
-		System.out.println(antwort2);
-		System.out.println(antwort3);
-
-		getQuestion();
+		getQuestionsArray();
+		splitQuestions();
 
 		testfrage.setText(frage);
-		ersteAntwort.setText(antwort1);
-		zweiteAntwort.setText(antwort2);
+		ersteAntwort.setText(antwort2);
+		zweiteAntwort.setText(antwort1);
 		driteAntwort.setText(antwort3);
 
 		ToggleGroup group = new ToggleGroup();
 		ersteAntwort.setToggleGroup(group);
 		zweiteAntwort.setToggleGroup(group);
 		driteAntwort.setToggleGroup(group);
-		//ersteAntwort.setSelected(true);
+
+		ersteAntwort.setSelected(false);
+		zweiteAntwort.setSelected(false);
+		driteAntwort.setSelected(false);
+
 	}
 
 	/*
@@ -201,26 +226,45 @@ public class TestController {
 	 * show the next question
 	 */
 	public void setNextQuestion() {
-		if (answerChecked == true) {
-			showQuestion();
-			System.out.println("next question");
-			nextquestion.setText("Antwort überprüfen");
-			answerChecked = false;
-		} else {
-			checkAnswer();
-			nextquestion.setText("Nächste Frage");
-			answerChecked = true;
+		if (ersteAntwort.isSelected() | zweiteAntwort.isSelected()
+				| driteAntwort.isSelected()) {
+			if (answerChecked == true) {
+				if (questionCounter < arraySize - 1) {
+					System.out.println(
+							"QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
+					questionCounter += 1;
+					showQuestion();
+					nextquestion.setText("Antwort überprüfen");
+					answerChecked = false;
+					getTest.questionsArrayList.clear();
+				} else {
+					check.setVisible(false);
+					question.setVisible(false);
+					showTrueAnswer.setVisible(false);
+					showFalseAnswer.setVisible(false);
+					showScore.setVisible(true);
+					score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
+				}
+			} else {
+				checkAnswer();
+				nextquestion.setText("Nächste Frage");
+				answerChecked = true;
+			}
+		}else {//TODO: make that this apears
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Fehler");
+			alert.setHeaderText(null);
+			alert.setContentText("Bitte wählen Sie eine Antwort aus");
 		}
-		
+
 	}
 
 	/*
-	 * look if the answer is corect or not
+	 * look if the answer is correct or not
 	 */
 	public void checkAnswer() {
 		if (ersteAntwort.isSelected()) {
 			if (ersteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -228,7 +272,6 @@ public class TestController {
 			}
 		} else if (zweiteAntwort.isSelected()) {
 			if (zweiteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -236,7 +279,6 @@ public class TestController {
 			}
 		} else if (driteAntwort.isSelected()) {
 			if (driteAntwort.getText() == antwort1) {
-				System.out.println(antwort1);
 				showTrueAnswer.setVisible(true);
 				richtigepunkte += punkte;
 			} else {
@@ -245,9 +287,14 @@ public class TestController {
 		}
 		gesamtpunkte += punkte;
 
-		System.out.println(gesamtpunkte);
-		System.out.println(richtigepunkte);
+	}
 
+	/*
+	 * bring you back to the main menu when the test is finished
+	 */
+	public void finishedTest() {
+		Stage stage = (Stage) btnhm.getScene().getWindow();
+		stage.close();
 	}
 
 	// Only getter and setter from here on
@@ -264,5 +311,12 @@ public class TestController {
 	 */
 	public void setTestName(String testName) {
 		this.testName = testName;
+	}
+
+	/**
+	 * 
+	 */
+	public void getQuestionsArraySize() {
+		arraySize = getTest.questionsArrayList.size();
 	}
 }
