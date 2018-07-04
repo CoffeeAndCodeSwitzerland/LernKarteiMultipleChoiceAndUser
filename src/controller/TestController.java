@@ -156,7 +156,6 @@ public class TestController {
 		for (int i = 0; i < getTest.questionsArrayList.size(); i++) {
 			tempArrayString = getTest.questionsArrayList.get(questionCounter);
 		}
-		System.out.println("Temp: " + Arrays.toString(tempArrayString));
 		return tempArrayString;
 	}
 
@@ -176,6 +175,26 @@ public class TestController {
 		}
 	}
 
+	public void arrangeQuestions() {
+		String[] tempString = {antwort1, antwort2, antwort3};
+		String[] answersString = new String[3];
+		Integer[] answersPosition = new Integer[3];
+		for(int i = 0;i < 3; i++) {
+			System.out.println("Int i: " + i);
+			Integer random;
+			random = rand.nextInt(3);
+			while(random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {
+				random = rand.nextInt(3);
+			}
+			answersPosition[i] = random;
+			answersString[i] = tempString[answersPosition[i]];
+			System.out.println("Positions: " + Arrays.toString(answersPosition));
+			System.out.println("Answers: " + Arrays.toString(answersString));
+			ersteAntwort.setText(answersString[0]);
+			zweiteAntwort.setText(answersString[1]);
+			driteAntwort.setText(answersString[2]);
+		}
+	}
 	/*
 	 * set the layout to answer a question
 	 */
@@ -186,14 +205,11 @@ public class TestController {
 		GetTest.startClass(testName);
 		check.setVisible(false);
 		question.setVisible(true);
-
 		getQuestionsArray();
 		splitQuestions();
-
+		arrangeQuestions();
+		
 		testfrage.setText(frage);
-		ersteAntwort.setText(antwort2);
-		zweiteAntwort.setText(antwort1);
-		driteAntwort.setText(antwort3);
 
 		ToggleGroup group = new ToggleGroup();
 		ersteAntwort.setToggleGroup(group);
