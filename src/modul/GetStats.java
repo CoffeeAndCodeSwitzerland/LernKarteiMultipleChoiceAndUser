@@ -2,8 +2,7 @@ package modul;
 
 import modul.ReadPlayerData;
 /**
- * This class should get the player stats out of the db TODO: make this class do
- * something usefull
+ * This class should get the player stats out of the db 
  * 
  * @author GiBr03
  *
