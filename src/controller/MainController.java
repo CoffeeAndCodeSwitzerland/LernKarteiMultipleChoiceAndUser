@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import modul.Database;
 import modul.Greetings;
 import view.MainView;
 import view.StatView;
@@ -27,7 +26,6 @@ public class MainController {
 	TestView tv;
 	StatView sv;
 	addTestView atv;
-	Database db = new Database();
 
 	Text greetings = new Text(greet.createGreeting());
 
@@ -38,7 +36,6 @@ public class MainController {
 
 	public void setMain(MainView mainView) {
 		txtLabel.setText(greet.createGreeting());
-		db.createTables();
 
 		//Makes the text appear and disappear
 		FadeTransition fadeTran = new FadeTransition(Duration.millis(2000), txtLabel);
