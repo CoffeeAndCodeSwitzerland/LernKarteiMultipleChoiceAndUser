@@ -1,5 +1,6 @@
 package modul;
 
+import modul.ReadPlayerData;
 /**
  * This class should get the player stats out of the db TODO: make this class do
  * something usefull
@@ -8,13 +9,13 @@ package modul;
  *
  */
 public class GetStats {
-
-	public int getWins() {
-		return 22;
+	ReadPlayerData rpd = new ReadPlayerData();
+	public int getPoints() {
+		return Integer.parseInt(rpd.getPlayerInfo("pointsreceived"));
 	}
 
-	public int getLosses() {
-		return 12;
+	public int getPointsTotal() {
+		return Integer.parseInt(rpd.getPlayerInfo("pointstotal"));
 	}
 
 }

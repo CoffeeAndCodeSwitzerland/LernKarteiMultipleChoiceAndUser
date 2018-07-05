@@ -77,19 +77,19 @@ public class StatView {
 	}
 	//creates win/loss view
 	public GridPane createWinLoss() {
-		GridPane gp = createView("Sieg/Niederlage:");
-		Integer wins = gs.getWins();
-		Integer losses = gs.getLosses();
+		GridPane gp = createView("Punkte erhalten/Punkte möglich:");
+		Integer wins = gs.getPoints();
+		Integer losses = gs.getPointsTotal();
 		
-		Text games = new Text("Spiele gesamt:" + (wins + losses));
+		Text games = new Text("Spiele gesamt:" + "Not yet working");
 		
 		games.setFont(Font.font("Verdana",50));
 		
 		//Creates the pie chart
 		ObservableList<PieChart.Data> pieChartDataWinLoss =
                 FXCollections.observableArrayList(
-                new PieChart.Data("Siege",wins),
-                new PieChart.Data("Niederlagen", losses));
+                new PieChart.Data("Punkte geholt",wins),
+                new PieChart.Data("Punkte nicht geholt", losses - wins));
 		
 		PieChart chart = new PieChart(pieChartDataWinLoss);
 		chart.setTitle("Sieg/Niederlage-Verhältnis");
