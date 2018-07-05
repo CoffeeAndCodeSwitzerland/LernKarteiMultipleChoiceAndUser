@@ -3,7 +3,6 @@ package modul;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 
 /**
  * This class will send an email
@@ -14,14 +13,20 @@ import javax.activation.*;
 public class SendMail {
 
 	/**
-	 * Sends an email
-	 * Note: this can only be send over an gmail account an if your account allows acces from less secure apps
-	 * Read -> https://serverfault.com/questions/635139/how-to-fix-send-mail-authorization-failed-534-5-7-14
-	 * If you want to go over your own email-server or an localhost read -> https://www.tutorialspoint.com/java/java_sending_email.htm
-	 * @param content content of your mail
-	 * @param address to whom this should be send. This can be the users email address wich can be grabed from the xml file or your own for ie error reports
+	 * Sends an email Note: this can only be send over an gmail account an if your
+	 * account allows access from less secure apps Read ->
+	 * https://serverfault.com/questions/635139/how-to-fix-send-mail-authorization-failed-534-5-7-14
+	 * If you want to go over your own email-server or an localhost read ->
+	 * https://www.tutorialspoint.com/java/java_sending_email.htm
+	 * 
+	 * @param content
+	 *            content of your mail
+	 * @param address
+	 *            to whom this should be send. This can be the users email address
+	 *            wich can be grabbed from the xml file or your own for ie error
+	 *            reports
 	 */
-	public void sendMail(String content, String address) {
+	public void sendMailGmail(String content, String address) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -49,4 +54,5 @@ public class SendMail {
 			System.out.println(">>>Error: " + e);
 		}
 	}
+
 }
