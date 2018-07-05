@@ -19,6 +19,13 @@ import modul.getStandartPath;
 
 import view.addTestView;
 
+/**
+ * This class control the addTestView. This class create the test as a text document.
+ * 
+ * @author Patrick Bauersfeld
+ * @since 05.07.2018
+ * @version 0.9
+ */
 public class addTestController {
 	
 	private addTestView myMain;
