@@ -55,12 +55,14 @@ public class addTestController {
 	@FXML private TextField answer1;
 	@FXML private TextField answer2;
 	@FXML private TextField answer3;
+	@FXML private TextField point;
 	@FXML private ComboBox boxQuestions;
 	@FXML private Label lblQuestion;
 	@FXML private Label lblConfirmation;
 	@FXML private CheckBox multipleChoice;
 	HashMap<String, String> questions = new HashMap<String, String>();
 	HashMap<String, String> idQuestions = new HashMap<String, String>();
+	HashMap<String, String> points = new HashMap<String, String>();
 	TextField[] fields = new TextField[3];
 	String[] questionsArray = new String[3];
 	String[] answerArray = new String[9];
@@ -157,6 +159,9 @@ public class addTestController {
 						}
 						//04.07.2018 13:36 number = 0;
 						
+						//Saves the points
+						points.put(numberOfQuestions+"."+(o+1), point.getText());
+						
 						/**
 						 * Print questions and answers.
 						 */
@@ -194,6 +199,9 @@ public class addTestController {
 					for(int i = 0; i < fields.length; i++) {
 						questions.put("q"+numberOfQuestions+"answer"+i, fields[i].getText());
 					}
+					
+					//Saves the points
+					points.put(numberOfQuestions+"", point.getText());
 					
 					/**
 					 * Print questions and answers.
@@ -252,6 +260,7 @@ public class addTestController {
 		addQuestion.setVisible(false);
 		loop = 0;
 		lblConfirmation.setVisible(false);
+		point.setText("");
 	}
 	
 	public void editQuestion() {
@@ -273,6 +282,7 @@ public class addTestController {
 			for(int i = 0; i < fields.length; i++) {
 				fields[i].setText(questions.get("q"+numberOfCurrentQuestions+"answer"+i));
 			}	
+			point.setText(points.get(numberOfCurrentQuestions));
 		}
 	}
 	
@@ -291,6 +301,9 @@ public class addTestController {
 		for(int i = 0; i < fields.length; i++) {
 			questions.replace("q"+numberOfCurrentQuestions+"answer"+i, fields[i].getText());
 		}
+		
+		//Saves the points
+		points.replace(numberOfCurrentQuestions, point.getText());
 		
 		editingQuestion = false;
 		back();
@@ -322,7 +335,8 @@ public class addTestController {
 							writer.println(questions.get("question"+(x+1)+"."+pointNumber)+""
 									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer0")+""
 									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer1")+""
-									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer2")+",1;");
+									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer2")+""
+									+ ","+points.get((x+1)+"."+pointNumber)+";");
 							pointNumber++;
 						}
 					} else {
@@ -333,7 +347,8 @@ public class addTestController {
 							writer.println(questions.get("question"+(1+x))+""
 									+ ","+questions.get("q"+(1+x)+"answer0")+""
 									+ ","+questions.get("q"+(1+x)+"answer1")+""
-									+ ","+questions.get("q"+(1+x)+"answer2")+",1;");
+									+ ","+questions.get("q"+(1+x)+"answer2")+""
+									+ ","+points.get((1+x)+"")+";");
 						}		
 					}
 				writer.println(")");
