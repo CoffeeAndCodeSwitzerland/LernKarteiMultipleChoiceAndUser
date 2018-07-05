@@ -18,7 +18,8 @@ import view.addTestView;
  * Opens and closes scenes
  * 
  * @author GiBr03
- *
+ * @version 1.0
+ * @since 5.7.2018
  */
 public class MainController {
 
@@ -28,8 +29,6 @@ public class MainController {
 	addTestView atv;
 	Database db = new Database();
 
-	private MainView tmain;
-
 	Text greetings = new Text(greet.createGreeting());
 
 	@FXML
@@ -38,10 +37,10 @@ public class MainController {
 	Text txtLabel;
 
 	public void setMain(MainView mainView) {
-		this.tmain = mainView;
 		txtLabel.setText(greet.createGreeting());
 		db.createTables();
 
+		//Makes the text appear and disappear
 		FadeTransition fadeTran = new FadeTransition(Duration.millis(2000), txtLabel);
 		fadeTran.setFromValue(1.0);
 		fadeTran.setToValue(0.0);

@@ -1,7 +1,12 @@
 package modul;
 
 import java.sql.*;
-
+/**
+ * This class creates a database
+ * Is not in use for no database is needed for the moment but should work
+ * @author GiBr03
+ *
+ */
 public class Database {
 
 	Connection con = null;

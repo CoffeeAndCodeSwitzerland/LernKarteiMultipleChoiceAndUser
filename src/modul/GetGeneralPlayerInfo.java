@@ -7,30 +7,26 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 
 /**
- * This class should get the general players general info
- * 
+ * This class should get the players general info
  * @author GiBr03
  *
  */
 public class GetGeneralPlayerInfo {
-	public static void main(String[] args) {
-		getPlayerInfo("name");
-	}
-
 	/**
 	 * Reads information out of the player.xml file
 	 * @param TagName the tagname in the xml file ie: name,gender etc
 	 * @return returns the text content of the tag
 	 */
-	public static String getPlayerInfo(String TagName) {
+	public String getPlayerInfo(String TagName) {
 		String returnValue = null;
 		try {
-			File XMLFile = new File("./src/playerdata/player.xml");
+			File XMLFile = new File("./src/playerdata/player.xml");//File location
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(XMLFile);
 
-			doc.getDocumentElement().normalize();
+			doc.getDocumentElement().normalize();//Normalizes the document
+			//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 
 			System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
@@ -45,7 +41,7 @@ public class GetGeneralPlayerInfo {
 					returnValue =  eElement.getElementsByTagName(TagName).item(0).getTextContent();
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception e) {//Prints the errors
 			System.out.println(">>>Error: " + e);
 		}
 		return returnValue;
