@@ -49,13 +49,13 @@ public class addTestController {
 	@FXML private Label lblQuestion;
 	@FXML private CheckBox multipleChoice;
 	HashMap<String, String> questions = new HashMap<String, String>();
-	HashMap<String, Integer> idQuestions = new HashMap<String, Integer>();
+	HashMap<String, String> idQuestions = new HashMap<String, String>();
 	TextField[] fields = new TextField[3];
 	String[] questionsArray = new String[3];
 	String[] answerArray = new String[9];
 	int numberOfQuestions = 1;
 	String currentQuestion;
-	int numberOfCurrentQuestions;
+	String numberOfCurrentQuestions;
 	boolean editingQuestion = false;
 	int loop = 0;
 	boolean isMultipleChoiceChecked = false;
@@ -129,19 +129,19 @@ public class addTestController {
 					 */
 					for(int o = 0; o < 3; o++) {
 						
-						currentQuestion = "Frage "+numberOfQuestions+": "+questionsArray[o];
+						currentQuestion = "Frage "+numberOfQuestions+"."+(o+1)+": "+questionsArray[o];
 						System.out.println(currentQuestion);
 						writeQuestionInBox();//Writes the questions in the combobox so you can edit them.
 						
-						questions.put("question"+numberOfQuestions, questionsArray[o]);
-						idQuestions.put(currentQuestion, numberOfQuestions);
+						questions.put("question"+numberOfQuestions+"."+(o+1), questionsArray[o]);
+						idQuestions.put(currentQuestion, numberOfQuestions+"."+(o+1));
 						
 						/**
 						 * Saves the answers.
 						 */
 						int number = 0;
 						for(int q = o*3; q < o*3+3; q++) {
-							questions.put("q"+numberOfQuestions+"answer"+number, answerArray[q]);
+							questions.put("q"+numberOfQuestions+(".")+(o+1)+"answer"+number, answerArray[q]);
 							number++;
 						}
 						//04.07.2018 13:36 number = 0;
@@ -154,23 +154,19 @@ public class addTestController {
 							System.out.println("Antwort "+i+":"+questions.get("q"+numberOfQuestions+"answer"+i));
 						}
 						
-						numberOfQuestions++;
 						System.out.println("New Question saved");
 					}
+					numberOfQuestions++;
 					loop = 0;
 					back();
 					multipleChoice();
 					multipleChoice.setSelected(false);
 				}
-				
+			} else {
 				/**
 				 * Saves 3 times the same question. So can not come a random question in the test.
 				 */
-			} else {
-				/**
-				 * Makes a loop which repeat 3 times
-				 */
-			 for(int xy = 0; xy < 3; xy++) {
+			 //for(int xy = 0; xy < 3; xy++) {
 				 
 					currentQuestion = "Frage "+numberOfQuestions+": "+question.getText();
 					writeQuestionInBox();	//Writes the questions in the combobox so you can edit them.
@@ -179,7 +175,7 @@ public class addTestController {
 				 	 * Saves the questions.
 				 	 */
 					questions.put("question"+numberOfQuestions, question.getText());
-					idQuestions.put(currentQuestion, numberOfQuestions);
+					idQuestions.put(currentQuestion, ""+numberOfQuestions);
 					
 					/**
 					 * Saves the answers.
@@ -202,7 +198,7 @@ public class addTestController {
 					back();
 			 }
 			}
-		}
+		//}
 	}
 	
 	/**
@@ -301,16 +297,32 @@ public class addTestController {
 			/**
 			 * Writes the value in the right format in the document so that the class TestView can read it.
 			 */
-			for(int x = 0; x <= numberOfQuestions-2; x += 3) {
-				
+			for(int x = 0; x <= numberOfQuestions-2; x++) {
+				int pointNumber = 1;
 				writer.println("(");
 				
-				for(int i = 1+x; i <= x+3; i++) {
-					writer.println(questions.get("question"+i)+""
-							+ ","+questions.get("q"+i+"answer0")+""
-							+ ","+questions.get("q"+i+"answer1")+""
-							+ ","+questions.get("q"+i+"answer2")+",1;");
-				}	
+					if(questions.get("question"+(1+x)) == null) {
+						/**
+						 * Print the questions which are differently.
+						 */
+						for(int i = 1+x; i <= x+3; i++) {
+							writer.println(questions.get("question"+(x+1)+"."+pointNumber)+""
+									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer0")+""
+									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer1")+""
+									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer2")+",1;");
+							pointNumber++;
+						}
+					} else {
+						for(int i = 1; i <= 3; i++) {
+							/**
+							 * Print the questions which are the same.
+							 */
+							writer.println(questions.get("question"+(1+x))+""
+									+ ","+questions.get("q"+(1+x)+"answer0")+""
+									+ ","+questions.get("q"+(1+x)+"answer1")+""
+									+ ","+questions.get("q"+(1+x)+"answer2")+",1;");
+						}		
+					}
 				writer.println(")");
 			}
 			
@@ -331,7 +343,7 @@ public class addTestController {
 			writer.close();//Close the writere and create the document.
 			//you can find the defaultpath by creating the test in the console as output or: C:\Users\%username%\git\LernKarteiMultipleChoiceAndUser\src\Tests\
 			//It is possible that the path have changed or the git repository is not on the sam place on your device...
-			
+			System.out.println("New test created");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
