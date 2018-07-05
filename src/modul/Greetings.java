@@ -13,8 +13,8 @@ public class Greetings {
 
 	GetGeneralPlayerInfo pl = new GetGeneralPlayerInfo();
 
-	String plName = pl.playName();
-
+	String plName = pl.getPlayerInfo("name");
+	
 	// Chooses a random greeting
 	public String createGreeting() {
 		String greeting = "Willkommen zurück";
