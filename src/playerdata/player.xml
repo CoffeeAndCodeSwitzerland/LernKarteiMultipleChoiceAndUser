@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<playerData>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><playerData>
   <player>
     <name>PerfectPlayerPalPeterPan</name>
     <gender>male</gender>
     <email>thisemailaintreal@notreal.com</email>
+	<pointsreceived>0</pointsreceived>
+	<pointstotal>1</pointstotal>
   </player>
 </playerData>

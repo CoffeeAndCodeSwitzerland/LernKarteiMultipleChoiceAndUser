@@ -11,7 +11,7 @@ import org.w3c.dom.*;
  * @author GiBr03
  *
  */
-public class GetGeneralPlayerInfo {
+public class ReadPlayerData {
 	/**
 	 * Reads information out of the player.xml file
 	 * @param TagName the tagname in the xml file ie: name,gender etc

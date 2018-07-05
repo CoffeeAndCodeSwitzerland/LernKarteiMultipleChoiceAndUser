@@ -11,7 +11,7 @@ import java.util.Random;
 public class Greetings {
 	Random rand = new Random();
 
-	GetGeneralPlayerInfo pl = new GetGeneralPlayerInfo();
+	ReadPlayerData pl = new ReadPlayerData();
 
 	String plName = pl.getPlayerInfo("name");
 	

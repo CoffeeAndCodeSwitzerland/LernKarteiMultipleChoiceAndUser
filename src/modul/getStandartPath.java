@@ -20,6 +20,7 @@ public class getStandartPath {
 			currentFilePath += test[i];
 		}
 		currentFilePath = currentFilePath + "src\\Tests\\";// Adds the test location to the path
+		System.out.println("Currentfilepath : " + currentFilePath);
 
 		return currentFilePath;
 	}

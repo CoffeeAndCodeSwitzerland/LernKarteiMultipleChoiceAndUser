@@ -20,8 +20,6 @@ public class GetTest {
 	static String nameOfTest;
 	static String signaturOfAuthor;
 
-	public static void main(String[] args) {
-	}
 
 	/**
 	 * Start the whole class
@@ -47,7 +45,7 @@ public class GetTest {
 	 */
 	private static void getFileContent(String fullname) {
 		try {
-			fileContent = new Scanner(new File(fullname)).useDelimiter("\\Z").next().toCharArray();
+			fileContent = new Scanner(new File(fullname + ".txt")).useDelimiter("\\Z").next().toCharArray();
 		} catch (FileNotFoundException e) {
 			System.out.println(">>>File content '" + fullname + "' not found!");
 			e.printStackTrace();

@@ -15,7 +15,7 @@ import view.TestView;
 import view.addTestView;
 
 /**
- * Opens and closes scenes
+ * Handels the main view
  * 
  * @author GiBr03
  * @version 1.0
