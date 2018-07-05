@@ -81,8 +81,8 @@ public class StatView {
 		Integer wins = gs.getPoints();
 		Integer losses = gs.getPointsTotal();
 		
-		Text games = new Text("Test durchgeführt gesamt: " + Integer.toString(gs.getPlays()));
-		
+		Text games = new Text("Tests gesamt: " + Integer.toString(gs.getPlays()));
+		 
 		games.setFont(Font.font("Verdana",50));
 		
 		//Creates the pie chart
@@ -101,6 +101,7 @@ public class StatView {
 		return gp;
 	}
 	//creates the playtime box
+	//This box makes nothing useful
 	public GridPane createPlaytime() {
 		GridPane gp = createView("Spielzeit:");
 		NumberAxis xAxis = new NumberAxis();
