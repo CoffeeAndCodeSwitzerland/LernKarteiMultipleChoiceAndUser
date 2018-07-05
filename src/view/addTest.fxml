@@ -11,7 +11,7 @@
 
 <AnchorPane id="panel" fx:id="pane" prefHeight="400.0" prefWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addTestController">
    <children>
-      <Pane fx:id="testProperties" prefHeight="400.0" prefWidth="600.0" visible="false">
+      <Pane fx:id="testProperties" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Test erstellen">
                <font>
@@ -40,9 +40,14 @@
             <Button fx:id="btnAddQuestion" layoutX="211.0" layoutY="138.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="25.0" prefWidth="362.0" text="Neue Frage hinzufügen" />
             <Button fx:id="btnMain" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#mainMenu" text="Hauptmenü" />
             <Button fx:id="btnCreateTest" layoutX="493.0" layoutY="361.0" mnemonicParsing="false" onAction="#createTest" text="Test erstellen" />
+            <Label fx:id="lblConfirmation" layoutX="204.0" layoutY="364.0" text="Test wurde erfolgreich erstellt...">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Pane fx:id="addQuestion" prefHeight="400.0" prefWidth="600.0">
+      <Pane fx:id="addQuestion" prefHeight="400.0" prefWidth="600.0" visible="false">
          <children>
             <Label fx:id="lblQuestion" layoutX="14.0" layoutY="14.0" text="Frage Nr.">
                <font>

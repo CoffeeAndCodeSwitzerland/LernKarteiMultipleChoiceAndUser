@@ -28,6 +28,7 @@ public class addTestController {
 		
 		testProperties.setVisible(true);
 		addQuestion.setVisible(false);
+		lblConfirmation.setVisible(false);
 		
 		fields[0] = answer1;
 		fields[1] = answer2;
@@ -49,6 +50,7 @@ public class addTestController {
 	@FXML private TextField answer3;
 	@FXML private ComboBox boxQuestions;
 	@FXML private Label lblQuestion;
+	@FXML private Label lblConfirmation;
 	@FXML private CheckBox multipleChoice;
 	HashMap<String, String> questions = new HashMap<String, String>();
 	HashMap<String, String> idQuestions = new HashMap<String, String>();
@@ -242,26 +244,28 @@ public class addTestController {
 		testProperties.setVisible(true);
 		addQuestion.setVisible(false);
 		loop = 0;
+		lblConfirmation.setVisible(false);
 	}
 	
 	public void editQuestion() {
-		
-		editingQuestion = true;
-		
-		numberOfCurrentQuestions = idQuestions.get(currentQuestion);
-		System.out.println("currentQuestion: Nr."+numberOfCurrentQuestions+" "+currentQuestion);
-		
-		testProperties.setVisible(false);
-		addQuestion.setVisible(true);
-		
-		lblQuestion.setText("Frage: "+numberOfCurrentQuestions);
-		
-		/**
-		 * Shows the values...
-		 */
-		question.setText(questions.get("question"+numberOfCurrentQuestions));
-		for(int i = 0; i < fields.length; i++) {
-			fields[i].setText(questions.get("q"+numberOfCurrentQuestions+"answer"+i));
+		if(numberOfQuestions > 1) {
+			editingQuestion = true;
+			
+			numberOfCurrentQuestions = idQuestions.get(currentQuestion);
+			System.out.println("currentQuestion: Nr."+numberOfCurrentQuestions+" "+currentQuestion);
+			
+			testProperties.setVisible(false);
+			addQuestion.setVisible(true);
+			
+			lblQuestion.setText("Frage: "+numberOfCurrentQuestions);
+			
+			/**
+			 * Shows the values...
+			 */
+			question.setText(questions.get("question"+numberOfCurrentQuestions));
+			for(int i = 0; i < fields.length; i++) {
+				fields[i].setText(questions.get("q"+numberOfCurrentQuestions+"answer"+i));
+			}	
 		}
 	}
 	
@@ -346,6 +350,7 @@ public class addTestController {
 			//you can find the defaultpath by creating the test in the console as output or: C:\Users\%username%\git\LernKarteiMultipleChoiceAndUser\src\Tests\
 			//It is possible that the path have changed or the git repository is not on the sam place on your device...
 			System.out.println("New test created");
+			lblConfirmation.setVisible(true);
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
