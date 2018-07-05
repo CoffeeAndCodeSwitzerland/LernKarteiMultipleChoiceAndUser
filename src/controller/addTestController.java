@@ -5,9 +5,13 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
+import com.sun.scenario.effect.Effect.AccelType;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -35,20 +39,20 @@ public class addTestController {
 		
 		testProperties.setVisible(true);
 		addQuestion.setVisible(false);
-		lblConfirmation.setVisible(false);
 		
-		fields[0] = answer1;
-		fields[1] = answer2;
-		fields[2] = answer3;
+		lblInformation.setVisible(false);
+		
+		answerFields[0] = answer1;
+		answerFields[1] = answer2;
+		answerFields[2] = answer3;
 	}
 	
 	@FXML private Pane testProperties;
 	@FXML private Pane addQuestion;
-	@FXML private Button btnAddQuestion;
+	
 	@FXML private Button btnSaveQuestion;
-	@FXML private Button btnCreateTest;
-	@FXML private Button btnEditQuestion;
 	@FXML private Button btnMain;
+	
 	@FXML private TextField testName;
 	@FXML private TextField signature;
 	@FXML private TextField question;
@@ -56,111 +60,175 @@ public class addTestController {
 	@FXML private TextField answer2;
 	@FXML private TextField answer3;
 	@FXML private TextField point;
+	
 	@FXML private ComboBox boxQuestions;
+	
 	@FXML private Label lblQuestion;
-	@FXML private Label lblConfirmation;
-	@FXML private CheckBox multipleChoice;
+	@FXML private Label lblInformation;
+	
+	@FXML private CheckBox chapter;
+	
+	Alert myInfo = new Alert(AlertType.INFORMATION);
+	Alert myWarning = new Alert(AlertType.WARNING);
+	Alert myError = new Alert(AlertType.ERROR);
+	
 	HashMap<String, String> questions = new HashMap<String, String>();
 	HashMap<String, String> idQuestions = new HashMap<String, String>();
 	HashMap<String, String> points = new HashMap<String, String>();
-	TextField[] fields = new TextField[3];
+	
+	TextField[] answerFields = new TextField[3];
+	
 	String[] questionsArray = new String[3];
 	String[] answerArray = new String[9];
+	
 	int numberOfQuestions = 1;
+	int loop = 0;
+	
 	String currentQuestion;
 	String numberOfCurrentQuestions;
-	boolean editingQuestion = false;
-	int loop = 0;
-	boolean isMultipleChoiceChecked = false;
 	
+	boolean editingQuestion = false;
+	boolean isChapterChecked = false;
+	boolean testHaveError = false;
+	boolean questionHaveError = false;
+	
+	
+	/**
+	 * Shows the question and answer fields.
+	 */
 	public void addQuestion() {		
 		
-		//Set the textfields and labels to default
+		//Clear the question an answer fields.
 		lblQuestion.setText("Frage: "+numberOfQuestions);
 		question.setText("");
-		for(int i = 0; i < fields.length; i++) {
-			fields[i].setText("");;
+		for(int i = 0; i < answerFields.length; i++) {
+			answerFields[i].setText("");;
 		}
 		
 		testProperties.setVisible(false);
 		addQuestion.setVisible(true);
 	}
 	
-	public void saveQuestion() {
+	public void checkQuestion() {
 		
-		if(editingQuestion == true) { //Check if the user edit the question or add a new question
-			saveEditedQuestion();
-		} else {
+		if(point.getText().equals("")) {
+			error("Gib eine Punktzahl ein");
+		}
+		
+		if(answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("")) {
+			error("Gib eine Antwort ein");
+		}
+		
+		if(question.getText().equals("")) {
+			error("Gib eine Frage ein!");
+		}
+		
+	}
+	
+	public void saveQuestion() {
+		questionHaveError = false;
+		
+		checkQuestion();
+		if(questionHaveError == false) {
 			
-			if(isMultipleChoiceChecked == true) { //Check if the user wants to ask 3 random questions which have the same meaning
+			if(editingQuestion == true) { //Check if the user edit the question or add a new question.
 				
-				//Saves the questions in a array
-				questionsArray[loop]=question.getText(); 
+				saveEditedQuestion();//Override the old question.
 				
-				/**
-				 * Saves the answers in a array.
-				 */
-				int count = 0;
-				for(int i = loop*3; i < loop*3+3; i++) {
-					answerArray[i] = fields[count].getText();
-					count++;
-				}
+			} else {
 				
-				/**
-				 * print the answer and questions array.
-				 */
-				for(int i = 0; i < answerArray.length; i++) {
-					if(i < questionsArray.length) {
-						System.out.println(questionsArray[i]);	
-					}	
-					System.out.println(answerArray[i]);
-				}
-				
-				/**
-				 * Check if loop smaller than 2, else you can't add a new question.
-				 */
-				if(loop < 2) {
+				if(isChapterChecked == true) { //Check if the user wants to ask 3 random questions with the same meaning or one question.
 					
-					/**
-					 * Clear the fields.. now you can add new questions.
-					 */
-					question.setText("");
-					for(int i = 0; i < fields.length; i++) {
-						fields[i].setText("");
+					//Saves the questions in a array
+					questionsArray[loop]=question.getText(); 
+					
+					//Saves the answers in a array.
+					int count = 0;
+					for(int i = loop*3; i < loop*3+3; i++) {
+						answerArray[i] = answerFields[count].getText();
+						count++;
 					}
 					
-					loop++;
-					lblQuestion.setText("Frage "+numberOfQuestions+"."+(loop+1));//Shows the new number of question.
+					//print the answer and questions array in console
+					for(int i = 0; i < answerArray.length; i++) {
+						if(i < questionsArray.length) {
+							System.out.println(questionsArray[i]);	
+						}	
+						System.out.println(answerArray[i]);
+					}
 					
-					/**
-					 * Saves the questions in the questions hashmap.
-					 */
+					//Check if loop smaller than 2, else you can't add a new question.
+					if(loop < 2) {
+						
+						//Clear the fields... now the user can add a new questions.
+						question.setText("");
+						for(int i = 0; i < answerFields.length; i++) {
+							answerFields[i].setText("");
+						}
+						
+						loop++;
+						lblQuestion.setText("Frage "+numberOfQuestions+"."+(loop+1));//Shows the new number of question.
+						
+					} else {
+						
+						point.setText("");
+						
+						for(int o = 0; o < 3; o++) {
+							
+							currentQuestion = "Frage "+numberOfQuestions+"."+(o+1)+": "+questionsArray[o];
+							System.out.println(currentQuestion);
+							writeQuestionInBox();//Write the questions in the combobox so the user can edit them later.
+							
+							//Writes the questions in the hasmap.
+							questions.put("question"+numberOfQuestions+"."+(o+1), questionsArray[o]);
+							idQuestions.put(currentQuestion, numberOfQuestions+"."+(o+1));
+							
+							//Saves the answers in the hashmap.
+							int number = 0;
+							for(int q = o*3; q < o*3+3; q++) {
+								questions.put("q"+numberOfQuestions+(".")+(o+1)+"answer"+number, answerArray[q]);
+								number++;
+							}
+							
+							points.put(numberOfQuestions+"."+(o+1), point.getText());//Saves the points in a hashmap.
+							
+							//Prints questions and answers in the console.
+							System.out.println("Frage: "+questions.get("question"+numberOfQuestions));
+							for(int i = 0; i < 3; i++) {
+								System.out.println("Antwort "+i+":"+questions.get("q"+numberOfQuestions+"answer"+i));
+							}
+							
+							System.out.println("New Question saved");
+						}
+						numberOfQuestions++;
+						back();
+						chapter();
+						chapter.setSelected(false);
+					}
 				} else {
-					
 					/**
-					 * loop which replays 3 times. (Saves all three questions and answers)
+					 * Saves 3 times the same question. So can not come a random question in the test.
 					 */
-					for(int o = 0; o < 3; o++) {
-						
-						currentQuestion = "Frage "+numberOfQuestions+"."+(o+1)+": "+questionsArray[o];
-						System.out.println(currentQuestion);
-						writeQuestionInBox();//Writes the questions in the combobox so you can edit them.
-						
-						questions.put("question"+numberOfQuestions+"."+(o+1), questionsArray[o]);
-						idQuestions.put(currentQuestion, numberOfQuestions+"."+(o+1));
+				 //for(int xy = 0; xy < 3; xy++) {
+					 
+						currentQuestion = "Frage "+numberOfQuestions+": "+question.getText();
+						writeQuestionInBox();	//Writes the questions in the combobox so you can edit them.
+					 
+					 	/**
+					 	 * Saves the questions.
+					 	 */
+						questions.put("question"+numberOfQuestions, question.getText());
+						idQuestions.put(currentQuestion, ""+numberOfQuestions);
 						
 						/**
 						 * Saves the answers.
 						 */
-						int number = 0;
-						for(int q = o*3; q < o*3+3; q++) {
-							questions.put("q"+numberOfQuestions+(".")+(o+1)+"answer"+number, answerArray[q]);
-							number++;
+						for(int i = 0; i < answerFields.length; i++) {
+							questions.put("q"+numberOfQuestions+"answer"+i, answerFields[i].getText());
 						}
-						//04.07.2018 13:36 number = 0;
 						
 						//Saves the points
-						points.put(numberOfQuestions+"."+(o+1), point.getText());
+						points.put(numberOfQuestions+"", point.getText());
 						
 						/**
 						 * Print questions and answers.
@@ -170,68 +238,29 @@ public class addTestController {
 							System.out.println("Antwort "+i+":"+questions.get("q"+numberOfQuestions+"answer"+i));
 						}
 						
+						numberOfQuestions++;
 						System.out.println("New Question saved");
-					}
-					numberOfQuestions++;
-					loop = 0;
-					back();
-					multipleChoice();
-					multipleChoice.setSelected(false);
+						
+						back();
+				 }
 				}
-			} else {
-				/**
-				 * Saves 3 times the same question. So can not come a random question in the test.
-				 */
-			 //for(int xy = 0; xy < 3; xy++) {
-				 
-					currentQuestion = "Frage "+numberOfQuestions+": "+question.getText();
-					writeQuestionInBox();	//Writes the questions in the combobox so you can edit them.
-				 
-				 	/**
-				 	 * Saves the questions.
-				 	 */
-					questions.put("question"+numberOfQuestions, question.getText());
-					idQuestions.put(currentQuestion, ""+numberOfQuestions);
-					
-					/**
-					 * Saves the answers.
-					 */
-					for(int i = 0; i < fields.length; i++) {
-						questions.put("q"+numberOfQuestions+"answer"+i, fields[i].getText());
-					}
-					
-					//Saves the points
-					points.put(numberOfQuestions+"", point.getText());
-					
-					/**
-					 * Print questions and answers.
-					 */
-					System.out.println("Frage: "+questions.get("question"+numberOfQuestions));
-					for(int i = 0; i < 3; i++) {
-						System.out.println("Antwort "+i+":"+questions.get("q"+numberOfQuestions+"answer"+i));
-					}
-					
-					numberOfQuestions++;
-					System.out.println("New Question saved");
-					
-					back();
-			 }
-			}
-		//}
+			//}
+			
+		}
 	}
 	
 	/**
 	 * Shows another overlay when the checkbox is checked.
 	 */
-	public void multipleChoice() {
-		isMultipleChoiceChecked = !isMultipleChoiceChecked;//changes the value of boolean
+	public void chapter() {
+		isChapterChecked = !isChapterChecked;//changes the value of boolean
 		
-		if(isMultipleChoiceChecked == true && editingQuestion == false) {//It changes only the overlay when the user not editing the question.
+		if(isChapterChecked == true && editingQuestion == false) {//It changes only the overlay when the user not editing the question.
 			
 			lblQuestion.setText("Frage "+numberOfQuestions+".1");
 			btnSaveQuestion.setText("Weiter");
 			
-		} else if (isMultipleChoiceChecked == false && editingQuestion == false){
+		} else if (isChapterChecked == false && editingQuestion == false){
 			
 			lblQuestion.setText("Frage "+numberOfQuestions);
 			btnSaveQuestion.setText("Speichern");
@@ -258,9 +287,8 @@ public class addTestController {
 	public void back() {
 		testProperties.setVisible(true);
 		addQuestion.setVisible(false);
+		lblInformation.setVisible(false);
 		loop = 0;
-		lblConfirmation.setVisible(false);
-		point.setText("");
 	}
 	
 	public void editQuestion() {
@@ -279,8 +307,8 @@ public class addTestController {
 			 * Shows the values...
 			 */
 			question.setText(questions.get("question"+numberOfCurrentQuestions));
-			for(int i = 0; i < fields.length; i++) {
-				fields[i].setText(questions.get("q"+numberOfCurrentQuestions+"answer"+i));
+			for(int i = 0; i < answerFields.length; i++) {
+				answerFields[i].setText(questions.get("q"+numberOfCurrentQuestions+"answer"+i));
 			}	
 			point.setText(points.get(numberOfCurrentQuestions));
 		}
@@ -298,8 +326,8 @@ public class addTestController {
 		/**
 		 * override the answers.
 		 */
-		for(int i = 0; i < fields.length; i++) {
-			questions.replace("q"+numberOfCurrentQuestions+"answer"+i, fields[i].getText());
+		for(int i = 0; i < answerFields.length; i++) {
+			questions.replace("q"+numberOfCurrentQuestions+"answer"+i, answerFields[i].getText());
 		}
 		
 		//Saves the points
@@ -309,73 +337,120 @@ public class addTestController {
 		back();
 	}
 	
+	
+	public void checkTest() {
+		
+		if(testName.getText().equals("")) {
+			error("Der Test muss einen Namen haben!");
+		}
+		
+		if(numberOfQuestions == 1) {
+			error("Der Test muss mindestens eine Frage haben!");
+		} 
+		
+	}
+	
+	private void info(String info) {
+		myInfo.setTitle("Information");
+		myInfo.setHeaderText(info);
+		myInfo.show();
+	}
+	
+	private void warning(String warning) {
+		myWarning.setTitle("Achtung");
+		myWarning.setHeaderText(warning);
+		myWarning.show();
+	}
+	
+	private void error(String error) {
+		testHaveError = true;
+		questionHaveError = true;
+		myError.setTitle("Fehler");
+		myError.setHeaderText(error);
+		myError.show();
+	}
+	
 	public void createTest() {
 		
-		PrintWriter writer;
+		testHaveError = false;
 		
-		try {
+		checkTest();//Check if the test have some empty fields.
+		
+		if(testHaveError == false) {
+			PrintWriter writer;
 			
-			writer = new PrintWriter(getStandartPath.getStandartPath()+testName.getText()+".txt", "UTF-8");//get the path and saves the document there.
-			System.out.println(getStandartPath.getStandartPath());
-			
-			writer.println("["+testName.getText()+"]["+signature.getText()+"]");//Write the test-name and the signature of author in the document.
-			
-			/**
-			 * Writes the value in the right format in the document so that the class TestView can read it.
-			 */
-			for(int x = 0; x <= numberOfQuestions-2; x++) {
-				int pointNumber = 1;
-				writer.println("(");
+			try {
 				
-					if(questions.get("question"+(1+x)) == null) {
-						/**
-						 * Print the questions which are differently.
-						 */
-						for(int i = 1+x; i <= x+3; i++) {
-							writer.println(questions.get("question"+(x+1)+"."+pointNumber)+""
-									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer0")+""
-									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer1")+""
-									+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer2")+""
-									+ ","+points.get((x+1)+"."+pointNumber)+";");
-							pointNumber++;
-						}
-					} else {
-						for(int i = 1; i <= 3; i++) {
+				writer = new PrintWriter(getStandartPath.getStandartPath()+testName.getText()+".txt", "UTF-8");//get the path and saves the document there.
+				System.out.println(getStandartPath.getStandartPath());
+				
+				writer.println("["+testName.getText()+"]["+signature.getText()+"]");//Write the test-name and the signature of author in the document.
+				
+				/**
+				 * Writes the value in the right format in the document so that the class TestView can read it.
+				 */
+				for(int x = 0; x <= numberOfQuestions-2; x++) {
+					int pointNumber = 1;
+					writer.println("(");
+					
+						if(questions.get("question"+(1+x)) == null) {
 							/**
-							 * Print the questions which are the same.
+							 * Print the questions which are differently.
 							 */
-							writer.println(questions.get("question"+(1+x))+""
-									+ ","+questions.get("q"+(1+x)+"answer0")+""
-									+ ","+questions.get("q"+(1+x)+"answer1")+""
-									+ ","+questions.get("q"+(1+x)+"answer2")+""
-									+ ","+points.get((1+x)+"")+";");
-						}		
-					}
-				writer.println(")");
-			}
-			
-				/* Test-example
-				[Testname][Signature]
-				(
-				question1.1,answer1 (right answer),answer2,answer3;question1.2,answer1,answer2,answer3;question1.3,answer1,answer2,answer3
-				)
-				(
-				question2.1,answer1 (right answer),answer2,answer3;question2.2,answer1,answer2,answer3;question2.3,answer1,answer2,answer3
-				)
-				*/
-			
-			/*04.07.2018 14:03 for(int i = 0; i < fields.length; i++) {
-				fields[i].setText("");//Delete the values.
-			}*/
-			
-			writer.close();//Close the writere and create the document.
-			//you can find the defaultpath by creating the test in the console as output or: C:\Users\%username%\git\LernKarteiMultipleChoiceAndUser\src\Tests\
-			//It is possible that the path have changed or the git repository is not on the sam place on your device...
-			System.out.println("New test created");
-			lblConfirmation.setVisible(true);
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+							for(int i = 1+x; i <= x+3; i++) {
+								writer.println(questions.get("question"+(x+1)+"."+pointNumber)+""
+										+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer0")+""
+										+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer1")+""
+										+ ","+questions.get("q"+(x+1)+"."+pointNumber+"answer2")+""
+										+ ","+points.get((x+1)+"."+pointNumber)+";");
+								pointNumber++;
+							}
+						} else {
+							for(int i = 1; i <= 3; i++) {
+								/**
+								 * Print the questions which are the same.
+								 */
+								writer.println(questions.get("question"+(1+x))+""
+										+ ","+questions.get("q"+(1+x)+"answer0")+""
+										+ ","+questions.get("q"+(1+x)+"answer1")+""
+										+ ","+questions.get("q"+(1+x)+"answer2")+""
+										+ ","+points.get((1+x)+"")+";");
+							}		
+						}
+					writer.println(")");
+				}
+				
+					/* Test-example
+					[Testname][Signature]
+					(
+					question1.1,answer1 (right answer),answer2,answer3;question1.2,answer1,answer2,answer3;question1.3,answer1,answer2,answer3
+					)
+					(
+					question2.1,answer1 (right answer),answer2,answer3;question2.2,answer1,answer2,answer3;question2.3,answer1,answer2,answer3
+					)
+					*/
+				
+				/*04.07.2018 14:03 for(int i = 0; i < fields.length; i++) {
+					fields[i].setText("");//Delete the values.
+				}*/
+				
+				writer.close();//Close the writere and create the document.
+				//you can find the defaultpath by creating the test in the console as output or: C:\Users\%username%\git\LernKarteiMultipleChoiceAndUser\src\Tests\
+				//It is possible that the path have changed or the git repository is not on the sam place on your device...
+				
+				System.out.println("Test-Name: "+testName.getText());
+				System.out.println("Signature: "+signature.getText());
+				System.out.println("New test created");
+				
+				lblInformation.setText("Test wurde erfolgreich erstellt...");
+				lblInformation.setVisible(true);
+				
+				info("Der Test wurde erfolgreich erstellt!");
+				
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 	} 
 	
@@ -384,4 +459,3 @@ public class addTestController {
 		stage.close();
 	}
 }
-
