@@ -430,13 +430,7 @@ public class addTestController {
 					)
 					*/
 				
-				/*04.07.2018 14:03 for(int i = 0; i < fields.length; i++) {
-					fields[i].setText("");//Delete the values.
-				}*/
-				
-				writer.close();//Close the writere and create the document.
-				//you can find the defaultpath by creating the test in the console as output or: C:\Users\%username%\git\LernKarteiMultipleChoiceAndUser\src\Tests\
-				//It is possible that the path have changed or the git repository is not on the sam place on your device...
+				writer.close();//Close the writer and create the document.
 				
 				System.out.println("Test-Name: "+testName.getText());
 				System.out.println("Signature: "+signature.getText());
