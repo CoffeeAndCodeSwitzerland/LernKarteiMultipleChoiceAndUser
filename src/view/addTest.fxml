@@ -38,7 +38,7 @@
             <ComboBox fx:id="boxQuestions" layoutX="211.0" layoutY="176.0" prefHeight="25.0" prefWidth="279.0" />
             <Button fx:id="btnEditQuestion" layoutX="500.0" layoutY="176.0" mnemonicParsing="false" onAction="#editQuestion" text="Bearbeiten" />
             <Button fx:id="btnAddQuestion" layoutX="211.0" layoutY="138.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="25.0" prefWidth="362.0" text="Neue Frage hinzufügen" />
-            <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Hauptmenü" />
+            <Button fx:id="btnMain" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#mainMenu" text="Hauptmenü" />
             <Button fx:id="btnCreateTest" layoutX="493.0" layoutY="361.0" mnemonicParsing="false" onAction="#createTest" text="Test erstellen" />
          </children>
       </Pane>

@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import modul.getStandartPath;
 
 import view.addTestView;
@@ -39,6 +40,7 @@ public class addTestController {
 	@FXML private Button btnSaveQuestion;
 	@FXML private Button btnCreateTest;
 	@FXML private Button btnEditQuestion;
+	@FXML private Button btnMain;
 	@FXML private TextField testName;
 	@FXML private TextField signature;
 	@FXML private TextField question;
@@ -349,5 +351,10 @@ public class addTestController {
 			e.printStackTrace();
 		}
 	} 
+	
+	public void mainMenu() {
+		Stage stage = (Stage) btnMain.getScene().getWindow();
+		stage.close();
+	}
 }
 
