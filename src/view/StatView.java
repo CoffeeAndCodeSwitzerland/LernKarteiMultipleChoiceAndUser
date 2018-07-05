@@ -81,7 +81,7 @@ public class StatView {
 		Integer wins = gs.getPoints();
 		Integer losses = gs.getPointsTotal();
 		
-		Text games = new Text("Spiele gesamt:" + "Not yet working");
+		Text games = new Text("Spiele gesamt: " + Integer.toString(gs.getPlays()));
 		
 		games.setFont(Font.font("Verdana",50));
 		

@@ -16,5 +16,8 @@ public class GetStats {
 	public int getPointsTotal() {
 		return Integer.parseInt(rpd.getPlayerInfo("pointstotal"));
 	}
-
+	
+	public int getPlays() {
+		return Integer.parseInt(rpd.getPlayerInfo("testsplayed"));
+	}
 }

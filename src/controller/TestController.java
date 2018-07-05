@@ -282,6 +282,7 @@ public class TestController {
 					score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
 					writeplData.writePlayerData("pointstotal",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointstotal")) + gesamtpunkte));
 					writeplData.writePlayerData("pointsreceived",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointsreceived")) + richtigepunkte));
+					writeplData.writePlayerData("testsplayed",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("testsplayed")) + 1));
 				}
 			} else {
 				checkAnswer();
