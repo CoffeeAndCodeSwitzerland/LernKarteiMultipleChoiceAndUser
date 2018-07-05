@@ -103,6 +103,9 @@ public class TestController {
 	Boolean a2 = false;
 	Boolean a3 = false;
 	Random rand = new Random();
+	
+	String fileName;
+	String txt;
 
 	/*
 	 * set the layout to choose a test and get the names of the tests
@@ -120,8 +123,11 @@ public class TestController {
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				System.out.println("File " + listOfFiles[i].getName());
-				testlist.getItems().add(listOfFiles[i].getName());
+				String tempStringName ="";
+				tempStringName = listOfFiles[i].getName();
+				fileName = tempStringName.substring(0, tempStringName.indexOf("."));
+				System.out.println("File " + fileName);
+				testlist.getItems().add(fileName);
 			} else if (listOfFiles[i].isDirectory()) {
 				System.out.println("Directory " + listOfFiles[i].getName());
 			}
