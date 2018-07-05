@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Random;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,6 +18,8 @@ import javafx.stage.Stage;
 import view.TestView;
 import modul.getStandartPath;
 import modul.GetTest;
+import modul.WritePlayerData;
+import modul.ReadPlayerData;
 
 /*
  * This class controls the action of the layout_chosecheck class.
@@ -86,7 +86,9 @@ public class TestController {
 	Pane showScore;
 
 	getStandartPath path = new getStandartPath();
-
+	ReadPlayerData readplData = new ReadPlayerData();
+	WritePlayerData writeplData = new WritePlayerData();
+	
 	// question, answer and points
 	String frage;
 	String antwort1;
@@ -103,7 +105,7 @@ public class TestController {
 	Boolean a2 = false;
 	Boolean a3 = false;
 	Random rand = new Random();
-	
+
 	String fileName;
 	String txt;
 
@@ -123,7 +125,7 @@ public class TestController {
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				String tempStringName ="";
+				String tempStringName = "";
 				tempStringName = listOfFiles[i].getName();
 				fileName = tempStringName.substring(0, tempStringName.indexOf("."));
 				System.out.println("File " + fileName);
@@ -180,31 +182,40 @@ public class TestController {
 			System.out.println(">>>Error: " + e);
 		}
 	}
+
 	/**
 	 * Arranges the questions randomly
 	 */
 	public void arrangeQuestions() {
-		String[] tempString = {antwort1, antwort2, antwort3};
+		String[] tempString = { antwort1, antwort2, antwort3 };
 		String[] answersString = new String[3];
 		Integer[] answersPosition = new Integer[3];
-		for(int i = 0;i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			System.out.println("Int i: " + i);
-			Integer random;//Is the postition of the answer will be generated randomly
+			Integer random;// Is the postition of the answer will be generated randomly
 			random = rand.nextInt(3);
-			while(random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {//Checks if the place is already occupied
+			while (random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {// Checks
+																													// if
+																													// the
+																													// place
+																													// is
+																													// already
+																													// occupied
 				random = rand.nextInt(3);
 			}
 			answersPosition[i] = random;
 			answersString[i] = tempString[answersPosition[i]];
-			/*Uncomment to better understand the concept
-			System.out.println("Positions: " + Arrays.toString(answersPosition));
-			System.out.println("Answers: " + Arrays.toString(answersString));
-			*/
+			/*
+			 * Uncomment to better understand the concept System.out.println("Positions: " +
+			 * Arrays.toString(answersPosition)); System.out.println("Answers: " +
+			 * Arrays.toString(answersString));
+			 */
 			ersteAntwort.setText(answersString[0]);
 			zweiteAntwort.setText(answersString[1]);
 			driteAntwort.setText(answersString[2]);
 		}
 	}
+
 	/*
 	 * set the layout to answer a question
 	 */
@@ -218,7 +229,7 @@ public class TestController {
 		getQuestionsArray();
 		splitQuestions();
 		arrangeQuestions();
-		
+
 		testfrage.setText(frage);
 
 		ToggleGroup group = new ToggleGroup();
@@ -252,8 +263,7 @@ public class TestController {
 	 * show the next question
 	 */
 	public void setNextQuestion() {
-		if (ersteAntwort.isSelected() | zweiteAntwort.isSelected()
-				| driteAntwort.isSelected()) {
+		if (ersteAntwort.isSelected() | zweiteAntwort.isSelected() | driteAntwort.isSelected()) {
 			if (answerChecked == true) {
 				if (questionCounter < arraySize - 1) {
 					System.out.println(
@@ -270,13 +280,15 @@ public class TestController {
 					showFalseAnswer.setVisible(false);
 					showScore.setVisible(true);
 					score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
+					writeplData.writePlayerData("pointstotal",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointstotal")) + gesamtpunkte));
+					writeplData.writePlayerData("pointsreceived",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointsreceived")) + richtigepunkte));
 				}
 			} else {
 				checkAnswer();
 				nextquestion.setText("Nächste Frage");
 				answerChecked = true;
 			}
-		}else {//TODO: make that this apears
+		} else {// TODO: make that this apears
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Fehler");
 			alert.setHeaderText(null);

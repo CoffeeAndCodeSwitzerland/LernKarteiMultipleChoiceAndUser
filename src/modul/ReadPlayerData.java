@@ -28,13 +28,11 @@ public class ReadPlayerData {
 			doc.getDocumentElement().normalize();//Normalizes the document
 			//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 
-			System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
 			NodeList nList = doc.getElementsByTagName("player");
 
 			for (int i = 0; i < nList.getLength(); i++) {
 				Node nNode = nList.item(i);
-				System.out.println("Element: " + nNode.getNodeName());
 				
 				if(nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
