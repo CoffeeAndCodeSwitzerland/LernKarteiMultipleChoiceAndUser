@@ -9,7 +9,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 
-
 import org.w3c.dom.Document;
 
 /**
@@ -21,8 +20,10 @@ import org.w3c.dom.Document;
 public class WritePlayerData {
 	/**
 	 * 
-	 * @param tagName name of the tag in the xml file
-	 * @param value value you want to have the tag
+	 * @param tagName
+	 *            name of the tag in the xml file
+	 * @param value
+	 *            value you want to have the tag
 	 */
 	public void writePlayerData(String tagName, String value) {
 		try {
@@ -47,15 +48,15 @@ public class WritePlayerData {
 					node.setTextContent(value);
 				}
 			}
-			
-			//Write content to file
-			TransformerFactory  transFactory = TransformerFactory.newInstance();
+
+			// Write content to file
+			TransformerFactory transFactory = TransformerFactory.newInstance();
 			Transformer transformer = transFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(filePath));
 			transformer.transform(source, result);
-			
-			System.out.println("Done");
+
+			System.out.println("Done writing players data");
 		} catch (Exception e) {
 			System.out.println(">>>>Error: " + e);
 		}
