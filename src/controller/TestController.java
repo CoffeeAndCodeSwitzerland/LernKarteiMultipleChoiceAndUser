@@ -191,7 +191,6 @@ public class TestController {
 		String[] answersString = new String[3];
 		Integer[] answersPosition = new Integer[3];
 		for (int i = 0; i < 3; i++) {
-			System.out.println("Int i: " + i);
 			Integer random;// Is the postition of the answer will be generated randomly
 			random = rand.nextInt(3);
 			while (random == answersPosition[0] || random == answersPosition[1] || random == answersPosition[2]) {// Checks
@@ -266,8 +265,6 @@ public class TestController {
 		if (ersteAntwort.isSelected() | zweiteAntwort.isSelected() | driteAntwort.isSelected()) {
 			if (answerChecked == true) {
 				if (questionCounter < arraySize - 1) {
-					System.out.println(
-							"QCounter: " + questionCounter + "ArrayList: " + getTest.questionsArrayList.size());
 					questionCounter += 1;
 					showQuestion();
 					nextquestion.setText("Antwort überprüfen");
