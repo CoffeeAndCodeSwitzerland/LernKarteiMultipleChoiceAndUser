@@ -88,7 +88,7 @@ public class TestController {
 	getStandartPath path = new getStandartPath();
 	ReadPlayerData readplData = new ReadPlayerData();
 	WritePlayerData writeplData = new WritePlayerData();
-	
+
 	// question, answer and points
 	String frage;
 	String antwort1;
@@ -280,9 +280,12 @@ public class TestController {
 					showFalseAnswer.setVisible(false);
 					showScore.setVisible(true);
 					score.setText("Sie haben " + richtigepunkte + " von " + gesamtpunkte + " Punkten erreicht!");
-					writeplData.writePlayerData("pointstotal",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointstotal")) + gesamtpunkte));
-					writeplData.writePlayerData("pointsreceived",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointsreceived")) + richtigepunkte));
-					writeplData.writePlayerData("testsplayed",Integer.toString(Integer.parseInt(readplData.getPlayerInfo("testsplayed")) + 1));
+					writeplData.writePlayerData("pointstotal",
+							Integer.toString(Integer.parseInt(readplData.getPlayerInfo("pointstotal")) + gesamtpunkte));
+					writeplData.writePlayerData("pointsreceived", Integer
+							.toString(Integer.parseInt(readplData.getPlayerInfo("pointsreceived")) + richtigepunkte));
+					writeplData.writePlayerData("testsplayed",
+							Integer.toString(Integer.parseInt(readplData.getPlayerInfo("testsplayed")) + 1));
 				}
 			} else {
 				checkAnswer();

@@ -22,7 +22,7 @@ public class GetTest {
 
 
 	/**
-	 * Start the whole class
+	 * Starts the whole class
 	 * 
 	 * @param fileNameFromTestController
 	 *            is the file name of the test
@@ -115,8 +115,8 @@ public class GetTest {
 	}
 
 	/**
-	 * 
 	 * Fills the arraylist with string arrays
+	 * 
 	 */
 	private static void extractQuestions() {
 		String tempString = null;
