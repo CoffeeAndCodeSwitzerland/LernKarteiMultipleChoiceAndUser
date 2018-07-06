@@ -4,8 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-
-import com.sun.scenario.effect.Effect.AccelType;
+import java.util.Optional;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modul.getStandartPath;
-
 import view.addTestView;
 
 /**
@@ -359,7 +359,6 @@ public class addTestController {
 	private void warning(String warning) {
 		myWarning.setTitle("Achtung");
 		myWarning.setHeaderText(warning);
-		myWarning.show();
 	}
 	
 	private void error(String error) {
@@ -449,7 +448,27 @@ public class addTestController {
 	} 
 	
 	public void mainMenu() {
-		Stage stage = (Stage) btnMain.getScene().getWindow();
-		stage.close();
+		ButtonType cancel = new ButtonType("Nein", ButtonData.CANCEL_CLOSE);
+		ButtonType accept = new ButtonType("Ja");
+		myWarning.getButtonTypes().remove(ButtonType.OK);
+		myWarning.getButtonTypes().addAll(accept, cancel);
+		warning("Wenn du zum Hauptmenü zurückkehrst,"
+				+ "\n kannst du den Test nur noch direkt im Text-Dokument bearbeiten. "
+				+ "\n Möchtest du wirklich zurück zum Hauptmenü?");
+		
+		Optional<ButtonType> result = myWarning.showAndWait();
+		ButtonType button = result.orElse(ButtonType.CANCEL);
+
+		if (button == accept) {
+		    System.out.println("Button: accept");
+		    
+		    
+			Stage stage = (Stage) btnMain.getScene().getWindow();
+			stage.close();
+		} else {
+		    System.out.println("Button: cancel");
+		}
+		
+		myWarning.getButtonTypes().removeAll(accept, cancel);
 	}
 }
