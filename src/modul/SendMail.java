@@ -6,7 +6,7 @@ import javax.mail.internet.*;
 
 /**
  * This class will send an email
- * Currently not used but do not delete
+ * Currently not used but do not delete it can be used later
  * 
  * @author GiBr03
  *

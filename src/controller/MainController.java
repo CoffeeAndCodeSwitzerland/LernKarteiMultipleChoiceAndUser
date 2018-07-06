@@ -37,7 +37,7 @@ public class MainController {
 	public void setMain(MainView mainView) {
 		txtLabel.setText(greet.createGreeting());
 
-		//Makes the text appear and disappear
+		// Makes the text appear and disappear
 		FadeTransition fadeTran = new FadeTransition(Duration.millis(2000), txtLabel);
 		fadeTran.setFromValue(1.0);
 		fadeTran.setToValue(0.0);
