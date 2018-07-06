@@ -1,6 +1,6 @@
 # LernKarteiMultipleChoiceAndUser
 ### Produktbeschrieb
-Mit dieser Applikation kann man selbst MultipleChoice Tests erstellen. Diese Tests kann man anschliessend auch selbst durchführen. Die Statistik ist momentan nur grafisch implementiert, dass heisst das die Statistik noch keinen funktionalen Aspekt erfüllen kann. 
+Mit dieser Applikation kann man selbst MultipleChoice Tests erstellen. Diese Tests kann man anschliessend auch selbst durchführen. Die Statistik ist nur Teilweise funktional implementiert , dass heisst das gewisse Teile der Statistik noch keinen funktionalen Aspekt erfüllen können. 
 ### Team
 * [Patrick Bauersfeld](https://github.com/patrick-bau)
 * [Giannin Brandenberger](https://github.com/MasterEvarior)
