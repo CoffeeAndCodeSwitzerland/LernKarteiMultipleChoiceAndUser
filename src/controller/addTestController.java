@@ -209,8 +209,7 @@ public class addTestController {
 								number++;
 							}
 
-							points.put(numberOfQuestions + "." + (o + 1), point.getText());// Saves the points in a
-																							// hashmap.
+							points.put(numberOfQuestions + "." + (o + 1), point.getText());// Saves the points in a hashmap.
 
 							// Prints questions and answers in the console.
 							System.out.println("Frage: " + questions.get("question" + numberOfQuestions));
