@@ -29,7 +29,7 @@ import view.addTestView;
  * 
  * @author Patrick Bauersfeld
  * @since 05.07.2018
- * @version 0.9
+ * @version 1.0
  */
 public class addTestController {
 
