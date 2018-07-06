@@ -1,5 +1,7 @@
 package modul;
 
+//TODO: add javax.mail jar to buildpath -> http://www.oracle.com/technetwork/java/index-138643.html
+//everything else also work without it
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
